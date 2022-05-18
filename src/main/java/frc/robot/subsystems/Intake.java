@@ -4,11 +4,31 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.Constants;
+import frc.robot.Constants.CANIds;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+
 public class Intake extends SubsystemBase {
+  private static Intake instance;
+  private final CANSparkMax motor = new CANSparkMax(CANIds.INTAKE_ID, MotorType.kBrushless);
   /** Creates a new ExampleSubsystem. */
-  public Intake() {}
+  private Intake() {}
+
+  public static Intake getInstance(){
+    if(instance == null){
+      instance = new Intake();
+    }
+    return instance;
+  }
+
+  public void run(double speed) {
+    motor.set(speed);
+  }
 
   @Override
   public void periodic() {
