@@ -12,4 +12,9 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
-public final class Constants {}
+public final class Constants {
+    public final class PneumaticChannels{
+        public final static int INTAKE_FORWARD = 0;
+        public final static int INTAKE_REVERSE = 1;
+    }
+}
