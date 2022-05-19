@@ -15,6 +15,7 @@ public class IntakePneumatics extends SubsystemBase {
   private DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, PneumaticChannels.INTAKE_FORWARD, PneumaticChannels.INTAKE_REVERSE);
 
   private static IntakePneumatics instance;
+  private boolean isIntakeOut;
 
   /** Creates a new IntakePneumatics. */
   public IntakePneumatics() {}
@@ -34,8 +35,13 @@ public class IntakePneumatics extends SubsystemBase {
     solenoid.set(Value.kReverse);
   }
 
+  public boolean getIsIntakeOut(){
+    return isIntakeOut;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    isIntakeOut = solenoid.get() == Value.kForward;
   }
 }
