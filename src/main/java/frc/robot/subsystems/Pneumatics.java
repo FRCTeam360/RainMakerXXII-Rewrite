@@ -4,11 +4,33 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+public class Pneumatics extends SubsystemBase{
 
-public class Pneumatics extends SubsystemBase {
+  private Compressor compressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
+  private Pneumatics instance;
+
   /** Creates a new Pneumatics. */
-  public Pneumatics() {}
+  public Pneumatics() {
+  }
+
+  public Pneumatics getInstance(){
+    if(instance == null){
+      instance = new Pneumatics();
+    }
+
+    return instance;
+  }
+
+  public void enable(){
+    compressor.enableDigital();
+  }
+
+  public void diable(){
+    compressor.disable();
+  }
 
   @Override
   public void periodic() {
