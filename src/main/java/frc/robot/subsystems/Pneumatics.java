@@ -28,6 +28,8 @@ public class Pneumatics extends SubsystemBase{
    * Starts compressor
    */
   public void enable(){
+    System.out.println("Enable pneumatics"); //test later
+    //To do figure out why it's pressurizing on its own.
     compressor.enableDigital();
   }
 

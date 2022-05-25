@@ -20,5 +20,11 @@ public final class Constants {
     public final class CANIds{
         public final static int INTAKE_ID = 10;
         public final static int PNEUMATIC_ID = 20;
+        public final static int MOTOR_L_LEAD_ID = 1;
+        public final static int MOTOR_L1_FOLLOW_ID = 2;
+        public final static int MOTOR_L2_FOLLOW_ID = 3;
+        public final static int MOTOR_R_LEAD_ID = 4;
+        public final static int MOTOR_R1_FOLLOW_ID = 5;
+        public final static int MOTOR_R2_FOLLOW_ID = 6;
     }
 }
