@@ -8,11 +8,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.CANIds;
 import frc.robot.Constants.PneumaticChannels;
 
 public class IntakePneumatics extends SubsystemBase {
 
-  private DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, PneumaticChannels.INTAKE_FORWARD, PneumaticChannels.INTAKE_REVERSE);
+  private DoubleSolenoid solenoid = new DoubleSolenoid(CANIds.PNEUMATIC_ID, PneumaticsModuleType.CTREPCM, PneumaticChannels.INTAKE_FORWARD, PneumaticChannels.INTAKE_REVERSE);
 
   private static IntakePneumatics instance;
   private boolean isIntakeOut;
@@ -20,17 +21,23 @@ public class IntakePneumatics extends SubsystemBase {
   /** Creates a new IntakePneumatics. */
   public IntakePneumatics() {}
 
-  public IntakePneumatics getInstance(){
+  public static IntakePneumatics getInstance(){
     if (instance == null) {
       instance = new IntakePneumatics();
     }
     return instance;
   }
 
+  /**
+   * Puts intake out of robot
+   */
   public void extend(){
     solenoid.set(Value.kForward);
   }
 
+  /**
+   * Pulls intake into robot
+   */
   public void retract(){
     solenoid.set(Value.kReverse);
   }

@@ -7,16 +7,16 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.CANIds;
 public class Pneumatics extends SubsystemBase{
 
-  private Compressor compressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
-  private Pneumatics instance;
+  private Compressor compressor = new Compressor(CANIds.PNEUMATIC_ID, PneumaticsModuleType.CTREPCM);
+  private static Pneumatics instance;
 
   /** Creates a new Pneumatics. */
-  public Pneumatics() {
-  }
+  public Pneumatics() {}
 
-  public Pneumatics getInstance(){
+  public static Pneumatics getInstance(){
     if(instance == null){
       instance = new Pneumatics();
     }
@@ -24,11 +24,17 @@ public class Pneumatics extends SubsystemBase{
     return instance;
   }
 
+  /**
+   * Starts compressor
+   */
   public void enable(){
     compressor.enableDigital();
   }
 
-  public void diable(){
+  /**
+   * Stops compressor
+   */
+  public void disable(){
     compressor.disable();
   }
 

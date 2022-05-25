@@ -19,5 +19,6 @@ public final class Constants {
     }
     public final class CANIds{
         public final static int INTAKE_ID = 10;
+        public final static int PNEUMATIC_ID = 20;
     }
 }
