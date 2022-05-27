@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.CANIds;
@@ -19,6 +20,8 @@ public class DriveTrain extends SubsystemBase {
   private final WPI_TalonFX motorRLead = new WPI_TalonFX(CANIds.MOTOR_R_LEAD_ID);
   private final WPI_TalonFX motorR1Follow = new WPI_TalonFX(CANIds.MOTOR_R1_FOLLOW_ID);
   private final WPI_TalonFX motorR2Follow = new WPI_TalonFX(CANIds.MOTOR_R2_FOLLOW_ID);
+
+  private final DifferentialDrive diffDrive = new DifferentialDrive(motorLLead, motorRLead);
 
   public static DriveTrain getInstance() {
     if(instance == null) {
@@ -42,6 +45,10 @@ public class DriveTrain extends SubsystemBase {
   public void stop() {
     motorLLead.set(0);
     motorRLead.set(0);
+  }
+
+  public void tankDrive(double leftY, double rightY) {
+    diffDrive.tankDrive(leftY, rightY);
   }
 
   @Override

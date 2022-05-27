@@ -32,14 +32,14 @@ public class IntakePneumatics extends SubsystemBase {
    * Puts intake out of robot
    */
   public void extend(){
-    solenoid.set(Value.kForward);
+    solenoid.set(Value.kReverse);
   }
 
   /**
    * Pulls intake into robot
    */
   public void retract(){
-    solenoid.set(Value.kReverse);
+    solenoid.set(Value.kForward);
   }
 
   public boolean getIsIntakeOut(){

@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ExtendIntake;
+import frc.robot.commands.RetractIntake;
 import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakePneumatics;
@@ -32,6 +34,8 @@ public class RobotContainer {
   private final Intake intake = Intake.getInstance();
 
   private final RunIntake runIntake = new RunIntake();
+  private final ExtendIntake extendIntake = new ExtendIntake();
+  private final RetractIntake retractIntake = new RetractIntake();
 
   public RobotContainer() {
     // Configure the button bindings
@@ -47,6 +51,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     OI.runIntakeButton.whileHeld(runIntake);
+    OI.extendIntakeButton.whileHeld(extendIntake);
+    OI.retractIntakeButton.whileHeld(retractIntake);
     }
 
   private void configureDefaultCommands() {

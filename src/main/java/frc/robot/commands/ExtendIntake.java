@@ -5,16 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.utils.OI;
+import frc.robot.subsystems.IntakePneumatics;
 
-public class TankDrive extends CommandBase {
-  private DriveTrain driveTrain = DriveTrain.getInstance();
-  
-  /** Creates a new TankDrive. */
-  public TankDrive() {
+public class ExtendIntake extends CommandBase {
+  private IntakePneumatics intakePneumatics;
 
+  /** Creates a new ExtendIntake. */
+  public ExtendIntake() {
     // Use addRequirements() here to declare subsystem dependencies.
+    intakePneumatics = IntakePneumatics.getInstance();
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +23,7 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveTrain.tankDrive(OI.driverCont.getLeftY() * OI.driverCont.getLeftY(), OI.driverCont.getRightY() * OI.driverCont.getRightY());
+    intakePneumatics.extend();
   }
 
   // Called once the command ends or is interrupted.
