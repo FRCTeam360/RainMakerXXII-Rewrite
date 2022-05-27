@@ -12,6 +12,7 @@ import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.IntakePneumatics;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.utils.OI;
 import frc.robot.utils.TriggerButton;
 import frc.robot.utils.TriggerButton.TriggerSide;
 
@@ -45,8 +46,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new TriggerButton(driverCont, TriggerSide.LEFT).whileHeld(runIntake);
-  }
+    OI.runIntakeButton.whileHeld(runIntake);
+    }
 
   private void configureDefaultCommands() {
     

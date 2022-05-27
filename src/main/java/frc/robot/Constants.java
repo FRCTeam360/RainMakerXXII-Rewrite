@@ -17,6 +17,11 @@ public final class Constants {
         public final static int INTAKE_FORWARD = 0;
         public final static int INTAKE_REVERSE = 1;
     }
+
+    public final class OIPorts{
+        public final static int DRIVER_CONT_PORT = 0;
+        public final static int OPERATOR_CONT_PORT = 1;
+    }
     public final class CANIds{
         public final static int INTAKE_ID = 10;
         public final static int PNEUMATIC_ID = 20;
