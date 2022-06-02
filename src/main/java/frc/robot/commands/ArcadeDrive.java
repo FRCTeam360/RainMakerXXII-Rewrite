@@ -8,12 +8,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.utils.OI;
 
-public class TankDrive extends CommandBase {
-  private DriveTrain driveTrain = DriveTrain.getInstance();
-  
-  /** Creates a new TankDrive. */
-  public TankDrive() {
-
+public class ArcadeDrive extends CommandBase {
+  DriveTrain driveTrain = DriveTrain.getInstance();
+  /** Creates a new ArcadeDrive. */
+  public ArcadeDrive() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -24,7 +22,7 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveTrain.tankDrive(OI.driverCont.getLeftY(), OI.driverCont.getRightY());
+    driveTrain.arcadeDrive(OI.driverCont.getLeftY(), -OI.driverCont.getLeftX());
   }
 
   // Called once the command ends or is interrupted.

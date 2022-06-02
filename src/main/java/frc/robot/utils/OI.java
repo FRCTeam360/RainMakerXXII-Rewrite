@@ -7,6 +7,7 @@ package frc.robot.utils;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Constants.OIPorts;
 import frc.robot.utils.TriggerButton.TriggerSide;
 
@@ -20,6 +21,8 @@ public class OI {
 
     public static final MultiJoystickButton extendIntakeButton = new MultiJoystickButton(driverCont, operatorCont, Button.kA.value);
     public static final MultiJoystickButton retractIntakeButton = new MultiJoystickButton(driverCont, operatorCont, Button.kB.value);
-    
+    public static final MultiJoystickButton reverseButton = new MultiJoystickButton(driverCont, operatorCont, Button.kX.value);
+    public static final POVButton tankButton = new POVButton(driverCont, 180);
+    public static final POVButton arcadeButton = new POVButton(driverCont, 90);
     
 }

@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 
@@ -35,6 +36,13 @@ public class DriveTrain extends SubsystemBase {
     motorL2Follow.follow(motorLLead);
     motorR1Follow.follow(motorRLead);
     motorR2Follow.follow(motorRLead);
+
+    motorLLead.setInverted(true);
+    motorL1Follow.setInverted(InvertType.FollowMaster);
+    motorL2Follow.setInverted(InvertType.FollowMaster);
+    motorRLead.setInverted(false);
+    motorR1Follow.setInverted(InvertType.FollowMaster);
+    motorR2Follow.setInverted(InvertType.FollowMaster);
   }
 
   public void run(double speedRight, double speedLeft) {
@@ -49,6 +57,10 @@ public class DriveTrain extends SubsystemBase {
 
   public void tankDrive(double leftY, double rightY) {
     diffDrive.tankDrive(leftY, rightY);
+  }
+
+  public void arcadeDrive(double leftY, double leftX) {
+    diffDrive.arcadeDrive(leftY, leftX);
   }
 
   @Override

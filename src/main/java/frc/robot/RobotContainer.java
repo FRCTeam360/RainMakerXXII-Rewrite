@@ -6,17 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ExtendIntake;
-import frc.robot.commands.RetractIntake;
-import frc.robot.commands.RunIntake;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.IntakePneumatics;
-import frc.robot.subsystems.Pneumatics;
+import frc.robot.commands.*;
 import frc.robot.utils.OI;
-import frc.robot.utils.TriggerButton;
-import frc.robot.utils.TriggerButton.TriggerSide;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,16 +17,12 @@ import frc.robot.utils.TriggerButton.TriggerSide;
  */
 public class RobotContainer {
 
-  private final XboxController driverCont = new XboxController(0);
-  private final XboxController operatorCont = new XboxController(1);
-
-  private final Pneumatics pneumatics = Pneumatics.getInstance();
-  private final IntakePneumatics intakePneumatics = IntakePneumatics.getInstance();
-  private final Intake intake = Intake.getInstance();
-
   private final RunIntake runIntake = new RunIntake();
+  private final RunIntakeReverse runIntakeReverse = new RunIntakeReverse();
   private final ExtendIntake extendIntake = new ExtendIntake();
   private final RetractIntake retractIntake = new RetractIntake();
+  private final TankDrive tankDrive = new TankDrive();
+  private final ArcadeDrive arcadeDrive = new ArcadeDrive();
 
   public RobotContainer() {
     // Configure the button bindings
@@ -53,7 +40,10 @@ public class RobotContainer {
     OI.runIntakeButton.whileHeld(runIntake);
     OI.extendIntakeButton.whileHeld(extendIntake);
     OI.retractIntakeButton.whileHeld(retractIntake);
-    }
+    OI.runIntakeButton.and(OI.reverseButton).whileActiveContinuous(runIntakeReverse);
+    OI.tankButton.whenPressed(tankDrive);
+    OI.arcadeButton.whenPressed(arcadeDrive);
+  }
 
   private void configureDefaultCommands() {
     
