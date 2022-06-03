@@ -14,8 +14,8 @@ import frc.robot.utils.TriggerButton.TriggerSide;
 /** Add your docs here. */
 public class OI {
 
-    public static final XboxController driverCont = new XboxController(OIPorts.DRIVER_CONT_PORT);
-    public static final XboxController operatorCont = new XboxController(OIPorts.OPERATOR_CONT_PORT);
+    public static final ExtendedXboxController driverCont = new ExtendedXboxController(OIPorts.DRIVER_CONT_PORT);
+    public static final ExtendedXboxController operatorCont = new ExtendedXboxController(OIPorts.OPERATOR_CONT_PORT);
 
     public static final MultiTriggerButton runIntakeButton = new MultiTriggerButton(driverCont, operatorCont, TriggerSide.LEFT);
 

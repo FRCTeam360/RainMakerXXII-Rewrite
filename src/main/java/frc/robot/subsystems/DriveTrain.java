@@ -7,6 +7,8 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI; 
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,6 +26,8 @@ public class DriveTrain extends SubsystemBase {
 
   private final DifferentialDrive diffDrive = new DifferentialDrive(motorLLead, motorRLead);
 
+  public final AHRS navX = new AHRS(SPI.Port.kMXP);
+
   public static DriveTrain getInstance() {
     if(instance == null) {
       instance = new DriveTrain();
@@ -32,6 +36,8 @@ public class DriveTrain extends SubsystemBase {
   }
   /** Creates a new DriveTrain. */
   public DriveTrain() {
+    navX.reset();
+
     motorL1Follow.follow(motorLLead);
     motorL2Follow.follow(motorLLead);
     motorR1Follow.follow(motorRLead);
@@ -61,6 +67,15 @@ public class DriveTrain extends SubsystemBase {
 
   public void arcadeDrive(double leftY, double leftX) {
     diffDrive.arcadeDrive(leftY, leftX);
+  }
+
+  public double getGyroAngle() {
+    return navX.getAngle();
+  }
+
+  public void setGyroAngle(double degrees) {
+    navX.reset();
+    navX.setAngleAdjustment(-degrees);
   }
 
   @Override
