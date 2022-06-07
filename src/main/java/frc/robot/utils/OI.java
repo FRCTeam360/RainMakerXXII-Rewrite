@@ -14,8 +14,8 @@ import frc.robot.utils.TriggerButton.TriggerSide;
 /** Add your docs here. */
 public class OI {
 
-    public static final ExtendedXboxController driverCont = new ExtendedXboxController(OIPorts.DRIVER_CONT_PORT);
-    public static final ExtendedXboxController operatorCont = new ExtendedXboxController(OIPorts.OPERATOR_CONT_PORT);
+    public static final ExtendedXboxController driverCont = new ExtendedXboxController(OIPorts.DRIVER_CONT_PORT, 0.125);
+    public static final ExtendedXboxController operatorCont = new ExtendedXboxController(OIPorts.OPERATOR_CONT_PORT, 0.125);
 
     public static final MultiTriggerButton runIntakeButton = new MultiTriggerButton(driverCont, operatorCont, TriggerSide.LEFT);
 
@@ -24,5 +24,7 @@ public class OI {
     public static final MultiJoystickButton reverseButton = new MultiJoystickButton(driverCont, operatorCont, Button.kX.value);
     public static final POVButton tankButton = new POVButton(driverCont, 180);
     public static final POVButton arcadeButton = new POVButton(driverCont, 90);
+    public static final POVButton fieldOrientedButton = new POVButton(driverCont, 270);
+    
     
 }

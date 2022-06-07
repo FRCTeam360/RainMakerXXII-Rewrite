@@ -9,8 +9,8 @@ import frc.robot.utils.ExtendedXboxController;
 import frc.robot.utils.OI;
 import frc.robot.subsystems.DriveTrain;
 
-public class FieldCentricDrive extends CommandBase {
-  DriveTrain mDriveTrain = DriveTrain.getInstance();
+public class FieldOrientedDrive extends CommandBase {
+  DriveTrain driveTrain = DriveTrain.getInstance();
   ExtendedXboxController driverCont = OI.driverCont;
 
   double rightLeft;
@@ -19,6 +19,10 @@ public class FieldCentricDrive extends CommandBase {
   double right;
   double gyroAngle;
 
+  public FieldOrientedDrive() {
+    addRequirements(driveTrain);
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -26,12 +30,13 @@ public class FieldCentricDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    gyroAngle = Math.toRadians(mDriveTrain.getGyroAngle());
+    gyroAngle = Math.toRadians(-driveTrain.getGyroAngle());
     rightLeft = driverCont.getLeftXSquared();
     upDown = driverCont.getLeftYSquared();
     forward = upDown * Math.cos(gyroAngle) + rightLeft * Math.sin(gyroAngle);
     right = -upDown * Math.sin(gyroAngle) + rightLeft * Math.cos(gyroAngle);
-    mDriveTrain.arcadeDrive(forward, right);
+    driveTrain.arcadeDrive(forward, right);
+    System.out.println("fielding");
   }
 
   // Called once the command ends or is interrupted.

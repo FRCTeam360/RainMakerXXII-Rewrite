@@ -23,6 +23,7 @@ public class RobotContainer {
   private final RetractIntake retractIntake = new RetractIntake();
   private final TankDrive tankDrive = new TankDrive();
   private final ArcadeDrive arcadeDrive = new ArcadeDrive();
+  private final FieldOrientedDrive fieldDrive = new FieldOrientedDrive();
 
   public RobotContainer() {
     // Configure the button bindings
@@ -43,6 +44,7 @@ public class RobotContainer {
     OI.runIntakeButton.and(OI.reverseButton).whileActiveContinuous(runIntakeReverse);
     OI.tankButton.whenPressed(tankDrive);
     OI.arcadeButton.whenPressed(arcadeDrive);
+    OI.fieldOrientedButton.whenPressed(fieldDrive);
   }
 
   private void configureDefaultCommands() {

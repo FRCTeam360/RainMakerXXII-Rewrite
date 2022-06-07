@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.kauailabs.navx.frc.AHRS;
@@ -49,6 +50,13 @@ public class DriveTrain extends SubsystemBase {
     motorRLead.setInverted(false);
     motorR1Follow.setInverted(InvertType.FollowMaster);
     motorR2Follow.setInverted(InvertType.FollowMaster);
+
+    motorLLead.setNeutralMode(NeutralMode.Coast);
+    motorL1Follow.setNeutralMode(NeutralMode.Coast);
+    motorL2Follow.setNeutralMode(NeutralMode.Coast);
+    motorRLead.setNeutralMode(NeutralMode.Coast);
+    motorR1Follow.setNeutralMode(NeutralMode.Coast);
+    motorR2Follow.setNeutralMode(NeutralMode.Coast);
   }
 
   public void run(double speedRight, double speedLeft) {

@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj.XboxController;
 /** Add your docs here. */
 public class ExtendedXboxController extends XboxController {
     double deadZone;
-    public ExtendedXboxController(int port) {
+
+    public ExtendedXboxController(int port, double givenDeadZone) {
         super(port);
+        this.deadZone = givenDeadZone;
     }
 
     public double getRightXWithDeadzone() {

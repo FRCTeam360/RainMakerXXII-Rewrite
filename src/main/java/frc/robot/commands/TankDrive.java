@@ -14,6 +14,8 @@ public class TankDrive extends CommandBase {
   /** Creates a new TankDrive. */
   public TankDrive() {
 
+    addRequirements(driveTrain);
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,6 +27,7 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     driveTrain.tankDrive(OI.driverCont.getLeftY(), OI.driverCont.getRightY());
+    System.out.println("tanking");
   }
 
   // Called once the command ends or is interrupted.
