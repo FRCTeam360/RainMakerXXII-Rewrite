@@ -22,9 +22,10 @@ public class OI {
     public static final MultiJoystickButton extendIntakeButton = new MultiJoystickButton(driverCont, operatorCont, Button.kA.value);
     public static final MultiJoystickButton retractIntakeButton = new MultiJoystickButton(driverCont, operatorCont, Button.kB.value);
     public static final MultiJoystickButton reverseButton = new MultiJoystickButton(driverCont, operatorCont, Button.kX.value);
-    public static final POVButton tankButton = new POVButton(driverCont, 180);
+    public static final POVButton resetButton = new POVButton(driverCont, 0);
     public static final POVButton arcadeButton = new POVButton(driverCont, 90);
+    public static final POVButton tankButton = new POVButton(driverCont, 180);
     public static final POVButton fieldOrientedButton = new POVButton(driverCont, 270);
     
-    
 }
+

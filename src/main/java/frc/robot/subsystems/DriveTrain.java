@@ -27,8 +27,6 @@ public class DriveTrain extends SubsystemBase {
 
   private final DifferentialDrive diffDrive = new DifferentialDrive(motorLLead, motorRLead);
 
-  public final AHRS navX = new AHRS(SPI.Port.kMXP);
-
   public static DriveTrain getInstance() {
     if(instance == null) {
       instance = new DriveTrain();
@@ -37,7 +35,6 @@ public class DriveTrain extends SubsystemBase {
   }
   /** Creates a new DriveTrain. */
   public DriveTrain() {
-    navX.reset();
 
     motorL1Follow.follow(motorLLead);
     motorL2Follow.follow(motorLLead);
@@ -75,15 +72,6 @@ public class DriveTrain extends SubsystemBase {
 
   public void arcadeDrive(double leftY, double leftX) {
     diffDrive.arcadeDrive(leftY, leftX);
-  }
-
-  public double getGyroAngle() {
-    return navX.getAngle();
-  }
-
-  public void setGyroAngle(double degrees) {
-    navX.reset();
-    navX.setAngleAdjustment(-degrees);
   }
 
   @Override

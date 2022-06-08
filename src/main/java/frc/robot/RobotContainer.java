@@ -24,6 +24,7 @@ public class RobotContainer {
   private final TankDrive tankDrive = new TankDrive();
   private final ArcadeDrive arcadeDrive = new ArcadeDrive();
   private final FieldOrientedDrive fieldDrive = new FieldOrientedDrive();
+  private final SetGyroAngle resetGyroAngle = new SetGyroAngle(0.0);
 
   public RobotContainer() {
     // Configure the button bindings
@@ -45,6 +46,7 @@ public class RobotContainer {
     OI.tankButton.whenPressed(tankDrive);
     OI.arcadeButton.whenPressed(arcadeDrive);
     OI.fieldOrientedButton.whenPressed(fieldDrive);
+    OI.resetButton.whenPressed(resetGyroAngle);
   }
 
   private void configureDefaultCommands() {

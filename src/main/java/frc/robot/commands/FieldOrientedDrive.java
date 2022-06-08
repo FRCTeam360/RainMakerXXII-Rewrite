@@ -4,14 +4,21 @@
 
 package frc.robot.commands;
 
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI; 
+
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.utils.ExtendedXboxController;
 import frc.robot.utils.OI;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Gyroscope;
 
 public class FieldOrientedDrive extends CommandBase {
+
   DriveTrain driveTrain = DriveTrain.getInstance();
   ExtendedXboxController driverCont = OI.driverCont;
+  Gyroscope gyroscope = Gyroscope.getInstance();
 
   double rightLeft;
   double upDown;
@@ -30,16 +37,18 @@ public class FieldOrientedDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    gyroAngle = Math.toRadians(-driveTrain.getGyroAngle());
+    gyroAngle = Math.toRadians(-gyroscope.getGyroAngle());
     rightLeft = driverCont.getLeftXSquared();
     upDown = driverCont.getLeftYSquared();
     forward = upDown * Math.cos(gyroAngle) + rightLeft * Math.sin(gyroAngle);
     right = -upDown * Math.sin(gyroAngle) + rightLeft * Math.cos(gyroAngle);
     driveTrain.arcadeDrive(forward, right);
     System.out.println("fielding");
+
   }
 
-  // Called once the command ends or is interrupted.
+  // Called once the command ends or is interrupted
+  
   @Override
   public void end(boolean interrupted) {}
 
