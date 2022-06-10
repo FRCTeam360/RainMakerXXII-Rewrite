@@ -33,7 +33,7 @@ public class Gyroscope extends SubsystemBase {
   }
   
   public double getGyroAngle() {
-    return navX.getAngle();
+    return Math.IEEEremainder(navX.getAngle(), 360);
   }
 
   public void setGyroAngle(double degrees) {

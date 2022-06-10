@@ -9,12 +9,16 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.SPI; 
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.CANIds;
+import frc.robot.utils.Utils;
+
 
 public class DriveTrain extends SubsystemBase {
   private static DriveTrain instance;
@@ -24,6 +28,9 @@ public class DriveTrain extends SubsystemBase {
   private final WPI_TalonFX motorRLead = new WPI_TalonFX(CANIds.MOTOR_R_LEAD_ID);
   private final WPI_TalonFX motorR1Follow = new WPI_TalonFX(CANIds.MOTOR_R1_FOLLOW_ID);
   private final WPI_TalonFX motorR2Follow = new WPI_TalonFX(CANIds.MOTOR_R2_FOLLOW_ID);
+
+  private SlewRateLimiter driveRLimiter = new SlewRateLimiter(1.5);
+  private SlewRateLimiter driveLLimiter = new SlewRateLimiter(1.5);
 
   private final DifferentialDrive diffDrive = new DifferentialDrive(motorLLead, motorRLead);
 
@@ -66,12 +73,15 @@ public class DriveTrain extends SubsystemBase {
     motorRLead.set(0);
   }
 
-  public void tankDrive(double leftY, double rightY) {
-    diffDrive.tankDrive(leftY, rightY);
+  public void tankDrive(double leftMotorPercentage, double rightMotorPercentage) {
+    double driveLeft = Utils.bound(leftMotorPercentage, 1, -1);
+    double driveRight = Utils.bound(rightMotorPercentage, 1, -1);
+    motorLLead.set(driveLLimiter.calculate(driveLeft));
+    motorRLead.set(driveRLimiter.calculate(driveRight));
   }
 
   public void arcadeDrive(double leftY, double leftX) {
-    diffDrive.arcadeDrive(leftY, leftX);
+    tankDrive(leftY + leftX, leftY - leftX);
   }
 
   @Override
