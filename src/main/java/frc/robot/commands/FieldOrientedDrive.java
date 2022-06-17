@@ -44,12 +44,12 @@ public class FieldOrientedDrive extends CommandBase {
     upDown = driverCont.getLeftYSquared();
     forward = upDown * Math.cos(gyroAngle) + rightLeft * Math.sin(gyroAngle);
     right = -upDown * Math.sin(gyroAngle) + rightLeft * Math.cos(gyroAngle);
-    right -= driverCont.getRightX();
 
+    Double turnInPlace = driverCont.getRightX();
     if(OI.FODReverseButton.get()) {
-      driveTrain.arcadeDrive(forward, -right);
+      driveTrain.arcadeDrive(forward, -right - turnInPlace);
     } else {
-      driveTrain.arcadeDrive(forward, right);
+      driveTrain.arcadeDrive(forward, right - turnInPlace);
     }
     
     System.out.println("fielding");
@@ -59,6 +59,7 @@ public class FieldOrientedDrive extends CommandBase {
   @Override
   public void end(boolean interrupted) {
   }
+  
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
