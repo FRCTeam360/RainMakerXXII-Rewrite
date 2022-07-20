@@ -25,6 +25,8 @@ public final class Constants {
     public final class CANIds{
         public final static int INTAKE_ID = 10;
         public final static int PNEUMATIC_ID = 20;
+        public final static int FEEDER_ID = 12;
+        public final static int TOWER_ID = 8;
         public final static int MOTOR_L_LEAD_ID = 1;
         public final static int MOTOR_L1_FOLLOW_ID = 2;
         public final static int MOTOR_L2_FOLLOW_ID = 3;
@@ -32,4 +34,12 @@ public final class Constants {
         public final static int MOTOR_R1_FOLLOW_ID = 5;
         public final static int MOTOR_R2_FOLLOW_ID = 6;
     }
+    public static final class DigitalInputPorts {
+        public static final int TOP_TOWER = 0;
+        public static final int BOTTOM_TOWER = 2;
+        public static final int FEEDER = 3;
+        public static final int MIDDLE_LIMIT_SWITCH = 1;
+    }
+
+
 }
