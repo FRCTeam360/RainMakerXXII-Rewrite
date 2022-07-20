@@ -5,13 +5,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Feeder;
 
-public class RunIntakeReverse extends CommandBase {
-  Intake intake = Intake.getInstance();
-  /** Creates a new RunIntake. */
-  public RunIntakeReverse() {
+public class RunFeeder extends CommandBase {
+  private Feeder feeder = Feeder.getInstance();
+  private boolean reversed;
+  /** Creates a new RunFeeder. */
+  public RunFeeder(boolean isReversed) {
+    addRequirements(feeder);
+    reversed = isReversed;
     // Use addRequirements() here to declare subsystem dependencies.
+  }
+
+  public RunFeeder() {
+    addRequirements(feeder);
+    reversed = false;
   }
 
   // Called when the command is initially scheduled.
@@ -21,14 +29,16 @@ public class RunIntakeReverse extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.run(-1);
+    if(reversed){
+      feeder.run(-1);
+    } else {
+      feeder.run(1);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    intake.run(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

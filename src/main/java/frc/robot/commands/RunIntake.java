@@ -8,10 +8,18 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 public class RunIntake extends CommandBase {
-  Intake intake = Intake.getInstance();
+  private Intake intake = Intake.getInstance();
+  private boolean reversed;
   /** Creates a new RunIntake. */
   public RunIntake() {
+    addRequirements(intake);
+    reversed = false;
     // Use addRequirements() here to declare subsystem dependencies.
+  }
+
+  public RunIntake(boolean isReversed){
+    addRequirements(intake);
+    reversed = isReversed;
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +29,11 @@ public class RunIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.run(1);
+    if(reversed){
+      intake.run(-1);
+    } else {
+      intake.run(1);
+    }
   }
 
   // Called once the command ends or is interrupted.

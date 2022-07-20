@@ -46,7 +46,7 @@ public class QueueBalls extends CommandBase {
   private void updateState() {
     if (feeder.hasBall() == false && tower.bottomHasBall() == false && tower.topHasBall() == false) {
       this.state = State.NO_BALLS;
-    } else if ()
+    } 
   }
 
   private void moveUnoBall() {

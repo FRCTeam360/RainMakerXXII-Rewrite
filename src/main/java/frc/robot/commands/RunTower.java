@@ -5,27 +5,35 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakePneumatics;
+import frc.robot.subsystems.Tower;
 
-public class ExtendIntake extends CommandBase {
-  private IntakePneumatics intakePneumatics;
-
-  /** Creates a new ExtendIntake. */
-  public ExtendIntake() {
-    addRequirements(intakePneumatics);
+public class RunTower extends CommandBase {
+  private boolean reversed;
+  private Tower tower = Tower.getInstance();
+  /** Creates a new RunTower. */
+  public RunTower(boolean isReversed) {
+    reversed = isReversed;
+    addRequirements(tower);
     // Use addRequirements() here to declare subsystem dependencies.
-    intakePneumatics = IntakePneumatics.getInstance();
+  }
+
+  public RunTower(){
+    reversed = false;
+    addRequirements(tower);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    intakePneumatics.extend();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(reversed){
+      tower.run(-1);
+    } else {
+      tower.run(1);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -35,6 +43,6 @@ public class ExtendIntake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

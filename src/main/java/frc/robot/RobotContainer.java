@@ -18,7 +18,11 @@ import frc.robot.utils.OI;
 public class RobotContainer {
 
   private final RunIntake runIntake = new RunIntake();
-  private final RunIntakeReverse runIntakeReverse = new RunIntakeReverse();
+  private final RunIntake runIntakeReverse = new RunIntake(true);
+  private final RunFeeder runFeeder = new RunFeeder();
+  private final RunFeeder runFeederReversed = new RunFeeder(true);
+  private final RunTower runTower = new RunTower();
+  private final RunTower runTowerReversed = new RunTower(true);
   private final ExtendIntake extendIntake = new ExtendIntake();
   private final RetractIntake retractIntake = new RetractIntake();
   private final TankDrive tankDrive = new TankDrive();
@@ -42,7 +46,13 @@ public class RobotContainer {
     OI.runIntakeButton.whileHeld(runIntake);
     OI.extendIntakeButton.whileHeld(extendIntake);
     OI.retractIntakeButton.whileHeld(retractIntake);
+    OI.runFeederButton.whileHeld(runFeeder);
     OI.runIntakeButton.and(OI.reverseButton).whileActiveContinuous(runIntakeReverse);
+    OI.runFeederButton.whileHeld(runFeeder);
+    OI.runFeederButton.and(OI.reverseButton).whileActiveContinuous(runFeederReversed);
+    OI.runTowerButton.whileHeld(runTower);
+    OI.runTowerButton.and(OI.reverseButton).whileActiveContinuous(runTowerReversed);
+
     OI.tankButton.whenPressed(tankDrive);
     OI.arcadeButton.whenPressed(arcadeDrive);
     OI.fieldOrientedButton.whenPressed(fieldDrive);

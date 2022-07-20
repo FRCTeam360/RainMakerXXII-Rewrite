@@ -18,11 +18,14 @@ public class OI {
     public static final ExtendedXboxController operatorCont = new ExtendedXboxController(OIPorts.OPERATOR_CONT_PORT, 0.125);
 
     public static final MultiTriggerButton runIntakeButton = new MultiTriggerButton(driverCont, operatorCont, TriggerSide.LEFT);
+    public static final MultiJoystickButton runFeederButton = new MultiJoystickButton(driverCont, operatorCont, Button.kLeftBumper.value);
+    public static final MultiJoystickButton runTowerButton = new MultiJoystickButton(driverCont, operatorCont, Button.kRightBumper.value);
 
     public static final MultiJoystickButton extendIntakeButton = new MultiJoystickButton(driverCont, operatorCont, Button.kA.value);
     public static final MultiJoystickButton retractIntakeButton = new MultiJoystickButton(driverCont, operatorCont, Button.kB.value);
     public static final MultiJoystickButton reverseButton = new MultiJoystickButton(driverCont, operatorCont, Button.kX.value);
     public static final JoystickButton FODReverseButton = new JoystickButton(driverCont, Button.kLeftStick.value);
+
 
     public static final POVButton resetButton = new POVButton(driverCont, 0);
     public static final POVButton arcadeButton = new POVButton(driverCont, 90);
