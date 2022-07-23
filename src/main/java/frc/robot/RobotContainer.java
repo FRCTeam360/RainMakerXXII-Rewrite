@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
 import frc.robot.utils.OI;
+import frc.robot.utils.RunWhenCanShoot;
+import frc.robot.utils.RunWhenEmpty;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,6 +31,8 @@ public class RobotContainer {
   private final ArcadeDrive arcadeDrive = new ArcadeDrive();
   private final FieldOrientedDrive fieldDrive = new FieldOrientedDrive();
   private final SetGyroAngle resetGyroAngle = new SetGyroAngle(0.0);
+  private final QueueBalls queueBalls = new QueueBalls(new RunWhenEmpty());
+  private final QueueBalls shootBalls = new QueueBalls(new RunWhenCanShoot());
 
   public RobotContainer() {
     // Configure the button bindings
@@ -46,12 +50,13 @@ public class RobotContainer {
     OI.runIntakeButton.whileHeld(runIntake);
     OI.extendIntakeButton.whileHeld(extendIntake);
     OI.retractIntakeButton.whileHeld(retractIntake);
-    OI.runFeederButton.whileHeld(runFeeder);
+    OI.runIntakeButton.whileHeld(runIntake);
     OI.runIntakeButton.and(OI.reverseButton).whileActiveContinuous(runIntakeReverse);
     OI.runFeederButton.whileHeld(runFeeder);
     OI.runFeederButton.and(OI.reverseButton).whileActiveContinuous(runFeederReversed);
     OI.runTowerButton.whileHeld(runTower);
     OI.runTowerButton.and(OI.reverseButton).whileActiveContinuous(runTowerReversed);
+    OI.queueBallsButton.whileHeld(queueBalls);
 
     OI.tankButton.whenPressed(tankDrive);
     OI.arcadeButton.whenPressed(arcadeDrive);

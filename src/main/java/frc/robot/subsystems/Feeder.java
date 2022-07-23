@@ -18,7 +18,9 @@ public class Feeder extends SubsystemBase {
   private final DigitalInput feederSensor = new DigitalInput(DigitalInputPorts.FEEDER);
 
   /** Creates a new Feeder. */
-  public Feeder() {}
+  public Feeder() {
+    motor.setInverted(true);
+  }
 
   public static Feeder getInstance(){
     if(instance == null){

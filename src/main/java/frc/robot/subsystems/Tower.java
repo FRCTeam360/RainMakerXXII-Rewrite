@@ -20,7 +20,9 @@ public class Tower extends SubsystemBase {
 
   private static Tower instance;
   /** Creates a new Tower. */
-  public Tower() {}
+  public Tower() {
+    motor.setInverted(false);
+  }
 
   public static Tower getInstance(){
     if(instance == null){

@@ -12,9 +12,10 @@ public class ExtendIntake extends CommandBase {
 
   /** Creates a new ExtendIntake. */
   public ExtendIntake() {
-    addRequirements(intakePneumatics);
+    
     // Use addRequirements() here to declare subsystem dependencies.
     intakePneumatics = IntakePneumatics.getInstance();
+    addRequirements(intakePneumatics);
   }
 
   // Called when the command is initially scheduled.

@@ -17,7 +17,9 @@ public class Intake extends SubsystemBase {
   private static Intake instance;
   private final CANSparkMax motor = new CANSparkMax(CANIds.INTAKE_ID, MotorType.kBrushless);
   /** Creates a new ExampleSubsystem. */
-  private Intake() {}
+  private Intake() {
+    motor.setInverted(true);
+  }
 
   public static Intake getInstance(){
     if(instance == null){

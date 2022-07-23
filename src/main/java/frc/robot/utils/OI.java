@@ -24,6 +24,8 @@ public class OI {
     public static final MultiJoystickButton extendIntakeButton = new MultiJoystickButton(driverCont, operatorCont, Button.kA.value);
     public static final MultiJoystickButton retractIntakeButton = new MultiJoystickButton(driverCont, operatorCont, Button.kB.value);
     public static final MultiJoystickButton reverseButton = new MultiJoystickButton(driverCont, operatorCont, Button.kX.value);
+    public static final MultiJoystickButton queueBallsButton = new MultiJoystickButton(driverCont, operatorCont, Button.kY.value);
+
     public static final JoystickButton FODReverseButton = new JoystickButton(driverCont, Button.kLeftStick.value);
 
 
