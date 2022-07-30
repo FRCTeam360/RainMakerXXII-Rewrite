@@ -8,6 +8,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.CANIds;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,6 +20,7 @@ public class Intake extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   private Intake() {
     motor.setInverted(true);
+    motor.setIdleMode(IdleMode.kBrake);
   }
 
   public static Intake getInstance(){

@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -22,6 +23,7 @@ public class Tower extends SubsystemBase {
   /** Creates a new Tower. */
   public Tower() {
     motor.setInverted(false);
+    motor.setIdleMode(IdleMode.kBrake);
   }
 
   public static Tower getInstance(){

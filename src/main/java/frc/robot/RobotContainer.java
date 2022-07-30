@@ -56,7 +56,7 @@ public class RobotContainer {
     OI.runFeederButton.and(OI.reverseButton).whileActiveContinuous(runFeederReversed);
     OI.runTowerButton.whileHeld(runTower);
     OI.runTowerButton.and(OI.reverseButton).whileActiveContinuous(runTowerReversed);
-    OI.queueBallsButton.whileHeld(queueBalls);
+    OI.queueBallsButton.whileHeld(shootBalls);
 
     OI.tankButton.whenPressed(tankDrive);
     OI.arcadeButton.whenPressed(arcadeDrive);

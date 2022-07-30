@@ -14,8 +14,9 @@ public class QueueBalls extends CommandBase {
   BooleanProvider booleanProvider;
   Feeder feeder = Feeder.getInstance();
   Tower tower = Tower.getInstance();
-  private enum State{RUN_BOTH, RUN_FEEDER, STOP_BOTH};
+  private enum State{NO_BALLS, ONE_BALL, ONE_PLUS_ONE_BALL, PRIMED, TWO_BALLS, FULL};
   private State state;
+  
   
   /** Creates a new QueueBalls. */
   public QueueBalls(BooleanProvider booleanProvider) {
@@ -26,7 +27,9 @@ public class QueueBalls extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    state = null;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -34,28 +37,37 @@ public class QueueBalls extends CommandBase {
     updateState();
     System.out.println(state);
     switch(state) {
-      case RUN_FEEDER:
+      case ONE_BALL:
         runFeeder();
+        if(feeder.hasBall() && tower.bottomHasBall()){
+          state = State.ONE_PLUS_ONE_BALL;
+        }
         break;
-      case STOP_BOTH:
-      default:
+      case ONE_PLUS_ONE_BALL:
+        runFeederSlowly();
+        if(!feeder.hasBall()){
+          state = State.PRIMED;
+        }
+        break;
+      case PRIMED:
+      case FULL:
         stopFeederAndTower();
         break;
-      case RUN_BOTH:
+      default:
+        stopFeederAndTower();
+        updateState();
+        break;
+      case NO_BALLS:
         runFeederAndTower();
         break;
     }
   }
 
   private void updateState() {
-    if (booleanProvider.getBoolean()) {
-      state = State.RUN_BOTH;
-    } else if (feeder.hasBall() && tower.bottomHasBall()) {
-      state = State.STOP_BOTH;
-    } else if (!feeder.hasBall() && tower.bottomHasBall()) {
-      state = State.RUN_FEEDER;
-    } else {
-      state = State.STOP_BOTH;
+    if (!feeder.hasBall() && !tower.bottomHasBall()) {
+      state = State.NO_BALLS;
+    } else if (tower.bottomHasBall()) {
+      state = State.ONE_BALL;
     }
   }
 
@@ -66,7 +78,12 @@ public class QueueBalls extends CommandBase {
 
   private void runFeeder() {
     tower.stop();
-    feeder.run(1);
+    feeder.run(0.5);
+  }
+
+  private void runFeederSlowly() {
+    tower.stop();
+    feeder.run(0.1);
   }
 
   private void stopFeederAndTower() {
