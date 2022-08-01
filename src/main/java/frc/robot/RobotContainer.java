@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
 import frc.robot.utils.OI;
-import frc.robot.utils.RunWhenCanShoot;
-import frc.robot.utils.RunWhenEmpty;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,8 +29,8 @@ public class RobotContainer {
   private final ArcadeDrive arcadeDrive = new ArcadeDrive();
   private final FieldOrientedDrive fieldDrive = new FieldOrientedDrive();
   private final SetGyroAngle resetGyroAngle = new SetGyroAngle(0.0);
-  private final QueueBalls queueBalls = new QueueBalls(new RunWhenEmpty());
-  private final QueueBalls shootBalls = new QueueBalls(new RunWhenCanShoot());
+  private final QueueBalls queueBalls = new QueueBalls(false);
+  private final QueueBalls shootBalls = new QueueBalls(true);
 
   public RobotContainer() {
     // Configure the button bindings
