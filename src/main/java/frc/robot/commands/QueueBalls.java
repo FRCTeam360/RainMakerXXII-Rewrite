@@ -18,6 +18,7 @@ public class QueueBalls extends CommandBase {
   Flywheel flywheel = Flywheel.getInstance();
   Limelight limelight = Limelight.getInstance();
   private enum State{NO_BALLS, ONE_BALL, ONE_PLUS_ONE_BALL, PRIMED, TWO_BALLS, FULL, JAM, SHOOT};
+  private enum State{NO_BALLS, ONE_BALL, ONE_PLUS_ONE_BALL, PRIMED, TWO_BALLS, FULL, JAM, SHOOT, UNKNOWN};
   private State state;
   private boolean shootWhenReady;
   
@@ -38,15 +39,16 @@ public class QueueBalls extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    updateState();
+    // updateState();
     System.out.println(state);
-    if(shootWhenReady && flywheel.isAtSpeed() && limelight.hasValidTarget()) {
+    if(shootWhenReady && flywheel.isAtSpeed() && limelight.isOnTarget()) {
       state = State.SHOOT;
     }
 
     //Logic should work its way down the switch statement, moving from one state to the next as each step
-    //is completed. In case of unknown state (null) updateState() is called. 
+    //is completed. In case of unknown state updateState() is called. 
     switch(state) {
+      case UNKNOWN:
       default:
         stopFeederAndTower();
         updateState();
@@ -84,7 +86,7 @@ public class QueueBalls extends CommandBase {
         tower.run(-0.1);
         feeder.run(-0.1);
         if(tower.bottomHasBall()) {
-          state = null;
+          state = State.UNKNOWN;
         }
         break;
       case SHOOT:
@@ -93,7 +95,7 @@ public class QueueBalls extends CommandBase {
     }
   }
 
-  //This logic will determine where in the switch statement the balls are in case of unknown (null) state
+  //This logic will determine where in the switch statement the balls are in case of unknown state
   private void updateState() {
     if (!tower.bottomHasBall() && !tower.topHasBall()) {
       state = State.NO_BALLS;
@@ -129,8 +131,8 @@ public class QueueBalls extends CommandBase {
   }
 
   private void pullBallUp() {
-    tower.run(0.1);
-    feeder.run(0.5);
+    tower.run(0.3); 
+    feeder.run(0.3);
   }
 
   // Called once the command ends or is interrupted.
