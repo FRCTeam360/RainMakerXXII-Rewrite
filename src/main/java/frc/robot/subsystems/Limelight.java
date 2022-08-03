@@ -50,7 +50,7 @@ public class Limelight extends SubsystemBase {
   }
 
   public boolean isOnTarget() {
-    return getTX() <= 1;
+    return Math.abs(getTX()) <= 1;
   }
 
   @Override

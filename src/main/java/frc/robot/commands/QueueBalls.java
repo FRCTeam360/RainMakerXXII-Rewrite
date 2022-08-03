@@ -92,11 +92,9 @@ public class QueueBalls extends CommandBase {
         }
         break;
       case SHOOT:
-        //cancel if not at speed or on target
-        if(!flywheel.isAtSpeed() || !limelight.isOnTarget()){
-          state = State.UNKNOWN;
+        checkIsShooterReady();
         //hesitate if two balls in tower
-        } else if(tower.topHasBall() && tower.bottomHasBall()) {
+        if(tower.topHasBall() && tower.bottomHasBall()) {
           state = State.SHOOT_FIRST_BALL;
         //shoot immediately otherwise
         } else {
@@ -104,12 +102,7 @@ public class QueueBalls extends CommandBase {
         }
         break;
       case SHOOT_FIRST_BALL:
-        //if not ready to shoot don't shoot
-        if(!flywheel.isAtSpeed() || !limelight.isOnTarget()){
-          timer.stop();
-          timer.reset();
-          state = State.UNKNOWN;
-        }
+        checkIsShooterReady();
         runTower();
         if(!tower.bottomHasBall()) {
           timer.start();
@@ -118,13 +111,9 @@ public class QueueBalls extends CommandBase {
         break;
       case PAUSE:
         stopFeederAndTower();
-        //if not ready to shoot don't shoot
-        if(!flywheel.isAtSpeed() || !limelight.isOnTarget()){
-          timer.stop();
-          timer.reset();
-          state = State.UNKNOWN;
+        checkIsShooterReady();
         //once waiting done, shoot second ball
-        } else if(timer.get() >= 1) {
+        if(timer.get() >= 1) {
           state = State.SHOOT;
         }
     }
@@ -173,6 +162,14 @@ public class QueueBalls extends CommandBase {
   private void pullBallUp() {
     tower.run(0.3); 
     feeder.run(0.3);
+  }
+
+  private void checkIsShooterReady() {
+    if(!flywheel.isAtSpeed() || !limelight.isOnTarget()){
+      timer.stop();
+      timer.reset();
+      state = State.UNKNOWN;
+    }
   }
 
   // Called once the command ends or is interrupted.
