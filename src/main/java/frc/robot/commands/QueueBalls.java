@@ -17,8 +17,7 @@ public class QueueBalls extends CommandBase {
   Tower tower = Tower.getInstance();
   Flywheel flywheel = Flywheel.getInstance();
   Limelight limelight = Limelight.getInstance();
-  private enum State{NO_BALLS, ONE_BALL, ONE_PLUS_ONE_BALL, PRIMED, TWO_BALLS, FULL, JAM, SHOOT};
-  private enum State{NO_BALLS, ONE_BALL, ONE_PLUS_ONE_BALL, PRIMED, TWO_BALLS, FULL, JAM, SHOOT, UNKNOWN};
+  private enum State{NO_BALLS, ONE_BALL, ONE_PLUS_ONE_BALL, PRIMED, TWO_BALLS, JAM, SHOOT, UNKNOWN};
   private State state;
   private boolean shootWhenReady;
   
@@ -74,12 +73,12 @@ public class QueueBalls extends CommandBase {
       case PRIMED:
         pullBallUp();
         if(tower.topHasBall() && tower.bottomHasBall()) {
-          state = State.FULL;
+          state = State.TWO_BALLS;
         } else if(tower.topHasBall() && !tower.bottomHasBall()) {
           state = State.JAM;
         }
         break;
-      case FULL:
+      case TWO_BALLS:
         stopFeederAndTower();
         break;
       case JAM:
@@ -91,6 +90,9 @@ public class QueueBalls extends CommandBase {
         break;
       case SHOOT:
         runFeederAndTower();
+        if(!flywheel.isAtSpeed() || !limelight.isOnTarget()){
+          state = State.UNKNOWN;
+        }
         break;
     }
   }
