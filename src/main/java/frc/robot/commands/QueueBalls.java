@@ -161,7 +161,7 @@ public class QueueBalls extends CommandBase {
 
   private void pullBallUp() {
     tower.run(0.3); 
-    feeder.run(0.4);
+    feeder.run(0.3);
   }
 
   private void checkIsShooterReady() {

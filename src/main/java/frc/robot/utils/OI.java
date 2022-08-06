@@ -28,6 +28,7 @@ public class OI {
 
     public static final JoystickButton FODReverseButton = new JoystickButton(driverCont, Button.kLeftStick.value);
 
+    public static final JoystickButton manualShootSlow = new JoystickButton(operatorCont, Button.kBack.value);
 
     public static final POVButton resetButton = new POVButton(driverCont, 0);
     public static final POVButton arcadeButton = new POVButton(driverCont, 90);
