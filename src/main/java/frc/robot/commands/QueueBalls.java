@@ -136,7 +136,7 @@ public class QueueBalls extends CommandBase {
 
   private void runFeederAndTower() {
     feeder.run(1);
-    tower.run(1);
+    tower.run(0.6);
   }
 
   private void runFeeder() {
@@ -151,7 +151,7 @@ public class QueueBalls extends CommandBase {
 
   private void runFeederSlowly() {
     tower.stop();
-    feeder.run(0.1);
+    feeder.run(0.5);
   }
 
   private void stopFeederAndTower() {
@@ -161,7 +161,7 @@ public class QueueBalls extends CommandBase {
 
   private void pullBallUp() {
     tower.run(0.3); 
-    feeder.run(0.3);
+    feeder.run(0.4);
   }
 
   private void checkIsShooterReady() {
