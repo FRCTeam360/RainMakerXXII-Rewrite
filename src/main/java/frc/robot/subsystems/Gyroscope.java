@@ -5,17 +5,25 @@
 package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI; 
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
+import frc.robot.Constants.CANIds;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Gyroscope extends SubsystemBase {
   public final AHRS navX = new AHRS(SPI.Port.kMXP);
+  public final WPI_Pigeon2 pigeon = new WPI_Pigeon2(CANIds.PIGEON_ID);
   private static Gyroscope instance;
 
   /** Creates a new Gyro. */
   private Gyroscope() {
-    navX.reset();
+    // navX.reset();
+    pigeon.reset();
   }
 
   public static Gyroscope getInstance() {
@@ -30,15 +38,24 @@ public class Gyroscope extends SubsystemBase {
   public void periodic() {
     // This method Fwill be called once per scheduler run
     //System.out.println(navX.getAngle());
+    SmartDashboard.putNumber("angle", getGyroAngle());
   }
   
   public double getGyroAngle() {
-    return Math.IEEEremainder(navX.getAngle(), 360);
+    return Math.IEEEremainder(pigeon.getAngle(), 360); 
+    // return pigeon.getAngle();
+    // return Math.IEEEremainder(navX.getAngle(), 360);
+  }
+
+  public Rotation2d getRotation2d(){
+    return pigeon.getRotation2d();
   }
 
   public void setGyroAngle(double degrees) {
-    navX.reset();
-    navX.setAngleAdjustment(degrees);
+    // navX.reset();
+    // navX.setAngleAdjustment(degrees);
+    pigeon.reset();
+    pigeon.setYaw(degrees);
   }
 
 }
