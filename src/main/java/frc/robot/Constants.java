@@ -46,5 +46,9 @@ public final class Constants {
         public static final int MIDDLE_LIMIT_SWITCH = 1;
     }
 
-
+    public static final class DriveTrainConstants {
+        public static final double trackWidthMeters = 0.641;
+        public static final double ticksToMeters = ((Math.PI * 0.1524) * ((15.0 / 85.0) * (24.0 / 46.0) / 2048.0));
+    }
+    
 }

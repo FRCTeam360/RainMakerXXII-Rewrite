@@ -9,14 +9,22 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
-
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CANIds;
+import frc.robot.Constants.DriveTrainConstants;
 import frc.robot.utils.Utils;
 
 
 public class DriveTrain extends SubsystemBase {
+  private static Gyroscope gyro = Gyroscope.getInstance();
+
   private static DriveTrain instance;
   private final WPI_TalonFX motorLLead = new WPI_TalonFX(CANIds.MOTOR_L_LEAD_ID);
   private final WPI_TalonFX motorL1Follow = new WPI_TalonFX(CANIds.MOTOR_L1_FOLLOW_ID);
@@ -28,7 +36,12 @@ public class DriveTrain extends SubsystemBase {
   private SlewRateLimiter driveRLimiter = new SlewRateLimiter(1.5);
   private SlewRateLimiter driveLLimiter = new SlewRateLimiter(1.5);
 
-  private final DifferentialDrive diffDrive = new DifferentialDrive(motorLLead, motorRLead);
+  // private final DifferentialDrive diffDrive = new DifferentialDrive(motorLLead, motorRLead);
+  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(DriveTrainConstants.trackWidthMeters);
+  private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
+
+  private Pose2d pose;
+  private Field2d field = new Field2d();
 
   public static DriveTrain getInstance() {
     if(instance == null) {
@@ -38,7 +51,6 @@ public class DriveTrain extends SubsystemBase {
   }
   /** Creates a new DriveTrain. */
   public DriveTrain() {
-
     motorL1Follow.follow(motorLLead);
     motorL2Follow.follow(motorLLead);
     motorR1Follow.follow(motorRLead);
@@ -57,6 +69,15 @@ public class DriveTrain extends SubsystemBase {
     motorRLead.setNeutralMode(NeutralMode.Coast);
     motorR1Follow.setNeutralMode(NeutralMode.Coast);
     motorR2Follow.setNeutralMode(NeutralMode.Coast);
+
+    SmartDashboard.putData("field", field);
+  }
+  
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+    pose = odometry.update(gyro.getRotation2d(), getLeftEncoderMeters(), getRightEncoderMeters());
+    field.setRobotPose(pose);
   }
 
   public void run(double speedRight, double speedLeft) {
@@ -80,8 +101,25 @@ public class DriveTrain extends SubsystemBase {
     tankDrive(leftY + leftX, leftY - leftX);
   }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void setOdometry(Pose2d givenPose) {
+    odometry.resetPosition(givenPose, gyro.getRotation2d());
   }
+
+  public double getLeftEncoderMeters() {
+    return motorLLead.getSelectedSensorPosition() * DriveTrainConstants.ticksToMeters;
+  }
+
+  public double getRightEncoderMeters() {
+    return motorRLead.getSelectedSensorPosition() * DriveTrainConstants.ticksToMeters;
+  }
+
+  public double getLeftMetersPerSec() {
+    return motorLLead.getSelectedSensorVelocity() * DriveTrainConstants.ticksToMeters;
+  }
+
+  public double getRightMetersPerSec() {
+    return motorRLead.getSelectedSensorVelocity() * DriveTrainConstants.ticksToMeters;
+  }
+  
+  
 }
