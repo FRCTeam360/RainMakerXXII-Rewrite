@@ -24,7 +24,7 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveTrain.arcadeDrive(OI.driverCont.getLeftY(), -OI.driverCont.getLeftX());
+    driveTrain.arcadeDrive(-OI.driverCont.getLeftY(), OI.driverCont.getLeftX());
     System.out.println("arcading");
   }
 

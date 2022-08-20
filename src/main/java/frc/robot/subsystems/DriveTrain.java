@@ -56,10 +56,10 @@ public class DriveTrain extends SubsystemBase {
     motorR1Follow.follow(motorRLead);
     motorR2Follow.follow(motorRLead);
 
-    motorLLead.setInverted(true);
+    motorLLead.setInverted(false);
     motorL1Follow.setInverted(InvertType.FollowMaster);
     motorL2Follow.setInverted(InvertType.FollowMaster);
-    motorRLead.setInverted(false);
+    motorRLead.setInverted(true);
     motorR1Follow.setInverted(InvertType.FollowMaster);
     motorR2Follow.setInverted(InvertType.FollowMaster);
 
@@ -71,6 +71,9 @@ public class DriveTrain extends SubsystemBase {
     motorR2Follow.setNeutralMode(NeutralMode.Coast);
 
     SmartDashboard.putData("field", field);
+
+    motorLLead.setSelectedSensorPosition(0);
+    motorRLead.setSelectedSensorPosition(0);
   }
   
   @Override
@@ -78,6 +81,9 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
     pose = odometry.update(gyro.getRotation2d(), getLeftEncoderMeters(), getRightEncoderMeters());
     field.setRobotPose(pose);
+    SmartDashboard.putNumber("left encoder", getLeftEncoderMeters());
+    SmartDashboard.putNumber("right encoder", getRightEncoderMeters());
+    // SmartDashboard.putNumber("rot2Dangle", gyro.getRotation2d().getDegrees()); //uncomment if angle resetting breaks (we're trying to please the programming gods) (its magic)
   }
 
   public void run(double speedRight, double speedLeft) {
