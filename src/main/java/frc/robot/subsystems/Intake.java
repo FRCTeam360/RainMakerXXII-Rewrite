@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
 import frc.robot.Constants.CANIds;
 
 import com.revrobotics.CANSparkMax;

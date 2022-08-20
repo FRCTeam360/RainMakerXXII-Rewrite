@@ -8,8 +8,6 @@ import static edu.wpi.first.wpilibj.util.ErrorMessages.requireNonNullParam;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
 /**
  * A {@link Button} that gets its state from a {@link GenericHID}.
  *

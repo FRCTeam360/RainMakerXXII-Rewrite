@@ -42,8 +42,8 @@ public class Gyroscope extends SubsystemBase {
   }
   
   public double getGyroAngle() {
-    return Math.IEEEremainder(pigeon.getAngle(), 360); 
-    // return pigeon.getAngle();
+    // return Math.IEEEremainder(pigeon.getAngle(), 360); 
+    return pigeon.getAngle();
     // return Math.IEEEremainder(navX.getAngle(), 360);
   }
 

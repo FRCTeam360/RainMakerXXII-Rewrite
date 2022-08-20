@@ -31,6 +31,7 @@ public class RobotContainer {
   private final SetGyroAngle resetGyroAngle = new SetGyroAngle(0.0);
   private final QueueBalls queueBalls = new QueueBalls(false);
   private final QueueBalls shootBalls = new QueueBalls(true);
+  private final ClimbManual climb = new ClimbManual();
 
   public RobotContainer() {
     // Configure the button bindings
@@ -60,6 +61,8 @@ public class RobotContainer {
     OI.arcadeButton.whenPressed(arcadeDrive);
     OI.fieldOrientedButton.whenPressed(fieldDrive);
     OI.resetButton.whenPressed(resetGyroAngle);
+
+    OI.climbButton.whileHeld(climb);
   }
 
   private void configureDefaultCommands() {

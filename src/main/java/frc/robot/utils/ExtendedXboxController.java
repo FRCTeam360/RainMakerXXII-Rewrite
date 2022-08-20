@@ -61,4 +61,8 @@ public class ExtendedXboxController extends XboxController {
     private double getSquaredValue(double value) {
         return value * Math.abs(value);
     }
+
+    public double getDeadZone(){
+        return deadZone;
+    }
 }
