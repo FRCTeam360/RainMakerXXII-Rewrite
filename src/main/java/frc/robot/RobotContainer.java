@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Turret;
 import frc.robot.utils.OI;
 
 /**
@@ -16,6 +17,7 @@ import frc.robot.utils.OI;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private final Turret turret = Turret.getInstance();
 
   private final RunIntake runIntake = new RunIntake();
   private final RunIntake runIntakeReverse = new RunIntake(true);
@@ -32,6 +34,7 @@ public class RobotContainer {
   private final QueueBalls queueBalls = new QueueBalls(false);
   private final QueueBalls shootBalls = new QueueBalls(true);
   private final ClimbManual climb = new ClimbManual();
+  private final TurretManual turretManual = new TurretManual();
 
   public RobotContainer() {
     // Configure the button bindings
@@ -66,7 +69,7 @@ public class RobotContainer {
   }
 
   private void configureDefaultCommands() {
-    
+    turret.setDefaultCommand(turretManual);
   }
 
   /**
