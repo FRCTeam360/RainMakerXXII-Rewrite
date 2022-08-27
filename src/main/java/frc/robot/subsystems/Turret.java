@@ -72,12 +72,18 @@ public class Turret extends SubsystemBase {
     motor.set(speed);
   }
 
-  public void turnToRobotAngle(double angle) {
+  public void turnToTurretAngle(double angle) {
     pidController.setReference(angle, CANSparkMax.ControlType.kPosition);
   }
 
+  //Turns turret relative to robot heading
+  public void turnToRobotAngle(double angle) {
+    turnToTurretAngle(angle - (180 * Math.signum(angle)));
+  }
+
+  //
   public void turnToFieldAngle(double angle) {
-    turnToRobotAngle(angle - gyro.getGyroAngle());
+    turnToRobotAngle(angle - )
   }
 
 
