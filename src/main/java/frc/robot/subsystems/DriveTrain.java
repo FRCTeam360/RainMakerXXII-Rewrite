@@ -19,8 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.CANIds;
 import frc.robot.Constants.DriveTrainConstants;
+import frc.robot.Constants.FieldConstants;
 import frc.robot.utils.Utils;
-
 
 public class DriveTrain extends SubsystemBase {
   private static Gyroscope gyro = Gyroscope.getInstance();
@@ -36,19 +36,22 @@ public class DriveTrain extends SubsystemBase {
   private SlewRateLimiter driveRLimiter = new SlewRateLimiter(1.5);
   private SlewRateLimiter driveLLimiter = new SlewRateLimiter(1.5);
 
-  // private final DifferentialDrive diffDrive = new DifferentialDrive(motorLLead, motorRLead);
-  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(DriveTrainConstants.trackWidthMeters);
+  // private final DifferentialDrive diffDrive = new DifferentialDrive(motorLLead,
+  // motorRLead);
+  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
+      DriveTrainConstants.trackWidthMeters);
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
 
   private Pose2d pose;
   private Field2d field = new Field2d();
 
   public static DriveTrain getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new DriveTrain();
     }
     return instance;
   }
+
   /** Creates a new DriveTrain. */
   public DriveTrain() {
     motorL1Follow.follow(motorLLead);
@@ -75,7 +78,7 @@ public class DriveTrain extends SubsystemBase {
     motorLLead.setSelectedSensorPosition(0);
     motorRLead.setSelectedSensorPosition(0);
   }
-  
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -83,7 +86,9 @@ public class DriveTrain extends SubsystemBase {
     field.setRobotPose(pose);
     SmartDashboard.putNumber("left encoder", getLeftEncoderMeters());
     SmartDashboard.putNumber("right encoder", getRightEncoderMeters());
-    // SmartDashboard.putNumber("rot2Dangle", gyro.getRotation2d().getDegrees()); //uncomment if angle resetting breaks (we're trying to please the programming gods) (its magic)
+    // SmartDashboard.putNumber("rot2Dangle", gyro.getRotation2d().getDegrees());
+    // //uncomment if angle resetting breaks (we're trying to please the programming
+    // gods) (its magic)
   }
 
   public void run(double speedRight, double speedLeft) {
@@ -126,6 +131,26 @@ public class DriveTrain extends SubsystemBase {
   public double getRightMetersPerSec() {
     return motorRLead.getSelectedSensorVelocity() * DriveTrainConstants.ticksToMeters;
   }
-  
-  
+
+  /**
+   * 
+   */
+  public double getAngleToHub() {
+    double radians = Math.atan((FieldConstants.hubY - pose.getY()) / FieldConstants.hubX - pose.getX());
+
+    //In the case that radians is undefined this method returns positive or negative 90
+    //Enacted when the robot and hub share an x coordinate.
+    if(pose.getX() == FieldConstants.hubX) {
+      return 90.0 * Math.signum(FieldConstants.hubY - pose.getY());
+    
+    //Robot is to the left of the hub (Our alliance's side of the field)
+    } else if(pose.getX() < FieldConstants.hubX) {
+      return Math.toDegrees(radians);
+
+    //Robot is to the right of the hub (Opposing alliance's side of the field)
+    } else {
+        return (180.0 - Math.abs(Math.toDegrees(radians))) * Math.signum(radians) * -1.0;
+    }
+  }
+
 }

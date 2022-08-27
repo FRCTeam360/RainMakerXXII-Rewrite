@@ -18,6 +18,8 @@ import frc.robot.Constants.CANIds;
 public class Turret extends SubsystemBase {
   private static Turret instance;
 
+  private Gyroscope gyro = Gyroscope.getInstance();
+
   private final CANSparkMax motor = new CANSparkMax(CANIds.TURRET_ID, MotorType.kBrushless);
   private RelativeEncoder encoder;
   private SparkMaxPIDController pidController;
@@ -70,8 +72,12 @@ public class Turret extends SubsystemBase {
     motor.set(speed);
   }
 
-  public void turnToAngle(double angle) {
+  public void turnToRobotAngle(double angle) {
     pidController.setReference(angle, CANSparkMax.ControlType.kPosition);
+  }
+
+  public void turnToFieldAngle(double angle) {
+    turnToRobotAngle(angle - gyro.getGyroAngle());
   }
 
 

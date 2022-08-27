@@ -22,6 +22,7 @@ public final class Constants {
         public final static int DRIVER_CONT_PORT = 0;
         public final static int OPERATOR_CONT_PORT = 1;
     }
+
     public final class CANIds{
         public final static int INTAKE_ID = 10;
         public final static int PNEUMATIC_ID = 20;
@@ -40,6 +41,7 @@ public final class Constants {
         public final static int CLIMBER_R_ID = 14;
         public final static int PIGEON_ID = 22;
     }
+
     public static final class DigitalInputPorts {
         public static final int TOP_TOWER = 0;
         public static final int BOTTOM_TOWER = 2;
@@ -52,5 +54,9 @@ public final class Constants {
         public static final double ticksToMeters = ((Math.PI * 0.1524) * ((15.0 / 85.0) * (24.0 / 46.0) / 2048.0));
     }
 
+    public static final class FieldConstants {
+        public static final double hubX = 8;
+        public static final double hubY = 5;
+    }
 
 }
