@@ -112,6 +112,10 @@ public class DriveTrain extends SubsystemBase {
     tankDrive(leftY + leftX, leftY - leftX);
   }
 
+  /**
+   * sets the position of the robot
+   * @param givenPose Pose2d that is the current position
+   */
   public void setOdometry(Pose2d givenPose) {
     odometry.resetPosition(givenPose, gyro.getRotation2d());
   }

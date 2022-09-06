@@ -41,10 +41,18 @@ public class Tower extends SubsystemBase {
     motor.set(0);
   }
 
+  /**
+   * checks sensor in top of tower
+   * @return
+   */
   public boolean topHasBall() {
     return !topTower.get();
   }
 
+  /**
+   * checks sensor in bottom of tower
+   * @return
+   */
   public boolean bottomHasBall() {
     return !bottomTower.get();
   }

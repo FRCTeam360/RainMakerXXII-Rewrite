@@ -24,6 +24,7 @@ public class Turret extends SubsystemBase {
   private RelativeEncoder encoder;
   private SparkMaxPIDController pidController;
   
+  //ensure you have .0 to make these of type double rather than int
   public static final double gearBoxRatio = 1.0 / 20.0;
   public static final double pulleyRatio = 1.5 / 17.5;
   public static final double degreesPerRotation = 360.0 / 1.0;
@@ -42,6 +43,8 @@ public class Turret extends SubsystemBase {
     motor.setInverted(false);
 
     encoder = motor.getEncoder();
+
+    //changes output from motor ticks to degrees
     encoder.setPositionConversionFactor(conversionFactor);
     // encoder.setPositionConversionFactor(0);
 
@@ -60,18 +63,35 @@ public class Turret extends SubsystemBase {
     return instance;
   }
 
+  /**
+   * uses encoder to get position of the turret
+   * @return angle of turret in degrees
+   */
   public double getAngle() {
     return encoder.getPosition();
   }
 
+  /**
+   * sets turret encoder to a position
+   * use 0 to reset
+   * @param angle in degrees
+   */
   public void resetAngle(double angle) {
     encoder.setPosition(angle);
   }
 
+  /**
+   * sets turret motor
+   * @param speed percent speed from -1.0 to 1.0
+   */
   public void run(double speed) {
     motor.set(speed);
   }
 
+  /**
+   * uses position pid to turn the turret to set robot relative angle
+   * @param angle in degrees
+   */
   public void turnToTurretAngle(double angle) {
     pidController.setReference(angle, CANSparkMax.ControlType.kPosition);
   }

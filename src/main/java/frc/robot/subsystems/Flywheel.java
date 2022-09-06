@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import javax.sound.sampled.SourceDataLine;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -36,10 +38,18 @@ public class Flywheel extends SubsystemBase {
     return instance;
   }
 
+  /**
+   * sets shooter to a percent power
+   * @param power percent power from -1.0 to 1.0
+   */
   public void setPower(double power) {
     motorLead.set(ControlMode.PercentOutput, power);
   }
 
+  /**
+   * sets shooter to velocity using pid controller
+   * @param velocity in rpms maybe? honestly not sure
+   */
   public void setVelocity(double velocity) {
     motorLead.set(ControlMode.Velocity, velocity);
     targetVelocity = velocity;
@@ -49,6 +59,7 @@ public class Flywheel extends SubsystemBase {
     return motorLead.getSelectedSensorVelocity();
   }
 
+  //50 is arbitrary, tune to account for issues
   public boolean isAtSpeed() {
     return Math.abs(getCurrentVelocity() - targetVelocity) <= 50;
   }

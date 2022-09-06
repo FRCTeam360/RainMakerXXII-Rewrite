@@ -71,8 +71,11 @@ public class Climber extends SubsystemBase {
     right.set(speed);
   }
 
+  //code finds the difference in encoder position then adjusts the output to make one catch up to the other
+
   public void extendClimber(){
     difference = getLeftPosition() - getRightPosition();
+    // /100 is arbitrary, we could use a different value
     double diff = difference / 100;
     runLeft(0.8 - diff);
     runRight(0.8 + diff);
