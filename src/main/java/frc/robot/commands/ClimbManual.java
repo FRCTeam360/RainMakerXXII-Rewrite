@@ -23,19 +23,15 @@ public class ClimbManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(OI.operatorCont.getLeftY() >= OI.operatorCont.getDeadZone() || OI.operatorCont.getRightY() >= OI.operatorCont.getDeadZone()){
-      climber.runLeft(OI.operatorCont.getLeftYWithDeadZone());
-      climber.runRight(OI.operatorCont.getRightYWithDeadZone());
-
-    } else if(OI.retractClimberButton.get()){
+    if(OI.retractClimberButton.get()){
       climber.retractClimber();
 
     } else if(OI.extendClimberButton.get()){
       climber.extendClimber();
 
     } else {
-      climber.runLeft(0);
-      climber.runRight(0);
+      climber.runLeft(OI.operatorCont.getLeftYWithDeadZone());
+      climber.runRight(OI.operatorCont.getRightYWithDeadZone());
     }
   }
 

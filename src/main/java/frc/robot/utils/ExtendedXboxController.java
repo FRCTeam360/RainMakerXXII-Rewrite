@@ -15,18 +15,34 @@ public class ExtendedXboxController extends XboxController {
         this.deadZone = givenDeadZone;
     }
 
+    /**
+     * implements deadzone into returned values
+     * @return if less than deadzone, returns 0
+     */
     public double getRightXWithDeadzone() {
         return removeDeadzoneValues(this.getRightX());
     }
 
+    /**
+     * implements deadzone into returned values
+     * @return if less than deadzone, returns 0
+     */
     public double getLeftXWithDeadZone() {
         return removeDeadzoneValues(this.getLeftX());
     }
 
+    /**
+     * implements deadzone into returned values
+     * @return if less than deadzone, returns 0
+     */
     public double getRightYWithDeadZone() {
         return removeDeadzoneValues(this.getRightY());
     }
-
+    
+    /**
+     * implements deadzone into returned values
+     * @return if less than deadzone, returns 0
+     */
     public double getLeftYWithDeadZone() {
         return removeDeadzoneValues(this.getLeftY());
     }
