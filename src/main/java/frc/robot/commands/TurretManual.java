@@ -7,8 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Turret;
+import frc.robot.utils.OI;
 
-public class TurretManual extends CommandBase {
+public class TurretManual extends CommandBase { 
   private Turret turret = Turret.getInstance();
   /** Creates a new TurretManual. */
   public TurretManual() {
@@ -23,12 +24,14 @@ public class TurretManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber("turret angle", turret.getAngle());
+    turret.run(OI.operatorCont.getLeftY());
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    turret.run(0);
+  }
 
   // Returns true when the command should end.
   @Override

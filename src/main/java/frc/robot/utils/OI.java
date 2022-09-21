@@ -32,6 +32,7 @@ public class OI {
 
     public static final JoystickButton manualShootSlow = new JoystickButton(operatorCont, Button.kBack.value);
     public static final JoystickButton climbButton = new JoystickButton(operatorCont, Button.kRightStick.value);
+    public static final JoystickButton manualTurretButton = new JoystickButton(operatorCont, Button.kStart.value);
 
     public static final POVButton resetButton = new POVButton(driverCont, 0);
     public static final POVButton arcadeButton = new POVButton(driverCont, 90);

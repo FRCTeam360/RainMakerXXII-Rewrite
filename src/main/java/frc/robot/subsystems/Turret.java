@@ -19,6 +19,7 @@ public class Turret extends SubsystemBase {
   private static Turret instance;
 
   private Gyroscope gyro = Gyroscope.getInstance();
+  private DriveTrain driveTrain = DriveTrain.getInstance();
 
   private final CANSparkMax motor = new CANSparkMax(CANIds.TURRET_ID, MotorType.kBrushless);
   private RelativeEncoder encoder;
@@ -101,9 +102,9 @@ public class Turret extends SubsystemBase {
     turnToTurretAngle(angle - (180 * Math.signum(angle)));
   }
 
-  //
+  //Turns turret relative to field
   public void turnToFieldAngle(double angle) {
-    turnToRobotAngle(angle - )
+    turnToRobotAngle(angle - gyro.getGyroAngle());
   }
 
 

@@ -66,10 +66,11 @@ public class RobotContainer {
     OI.resetButton.whenPressed(resetGyroAngle);
 
     OI.climbButton.whileHeld(climb);
+    OI.manualTurretButton.whileHeld(turretManual);
   }
 
   private void configureDefaultCommands() {
-    turret.setDefaultCommand(turretManual);
+    // turret.setDefaultCommand(turretManual);
   }
 
   /**
