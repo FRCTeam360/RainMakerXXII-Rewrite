@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.CANIds;
 import frc.robot.Constants.DriveTrainConstants;
 import frc.robot.Constants.FieldConstants;
@@ -38,9 +40,11 @@ public class DriveTrain extends SubsystemBase {
 
   // private final DifferentialDrive diffDrive = new DifferentialDrive(motorLLead,
   // motorRLead);
-  private final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(
+  public static final DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics( //made public to use in AutoConfig
       DriveTrainConstants.trackWidthMeters);
   private final DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
+  public final static SimpleMotorFeedforward feedForward = new SimpleMotorFeedforward(AutoConstants.ksVolts, //copy pasted from xxii code
+  AutoConstants.kvVoltSecondsPerMeter, AutoConstants.kaVoltSecondsSquaredPerMeter);
 
   private Pose2d pose;
   private Field2d field = new Field2d();
@@ -110,6 +114,10 @@ public class DriveTrain extends SubsystemBase {
 
   public void arcadeDrive(double leftY, double leftX) {
     tankDrive(leftY + leftX, leftY - leftX);
+  }
+  
+  public static DifferentialDriveKinematics getKinematics() {
+    return kinematics;
   }
 
   /**
