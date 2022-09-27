@@ -9,7 +9,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.utils.OI;
 
 public class ArcadeDrive extends CommandBase {
-  DriveTrain driveTrain = DriveTrain.getInstance();
+  private DriveTrain driveTrain = DriveTrain.getInstance();
   /** Creates a new ArcadeDrive. */
   public ArcadeDrive() {
 

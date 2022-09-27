@@ -42,16 +42,16 @@ public class TR_5Ball extends ParallelRaceGroup {
     Intake intake = Intake.getInstance();
     DriveTrain driveTrain = DriveTrain.getInstance();
 
+    //TO DO: UPDATE WHEN ODOMETRY IS FIXED !!! (names indicate starts and ends of each path)
     private static final String ball2JSON = "paths/2ball.wpilib.json";
-    // Trajectory phase1 = new Trajectory();
 
-    public static final Trajectory phase1 = TrajectoryGenerator.generateTrajectory(
+    public static final Trajectory initToBall2 = TrajectoryGenerator.generateTrajectory( //robot starts w ball 1
             new Pose2d(0, 0, new Rotation2d(0)),
             List.of(),
             new Pose2d(1.1, -1, new Rotation2d(-90)),
             AutoConfig.configFwdHigh);
 
-    public static final Trajectory phase11 = TrajectoryGenerator.generateTrajectory(
+    public static final Trajectory lilturnturn = TrajectoryGenerator.generateTrajectory(
             new Pose2d(1.1, -1, new Rotation2d(-90)),
             List.of(
                     new Translation2d(.25, -3)),
@@ -66,19 +66,19 @@ public class TR_5Ball extends ParallelRaceGroup {
             new Pose2d(0.60 + AutoConstants.getXOffsetTerminal5Ball(), -7 + AutoConstants.getYOffsetTerminal5Ball(), new Rotation2d(-45)),
             AutoConfig.configFwdHigh);
 
-    private static final Trajectory phase3 = TrajectoryGenerator.generateTrajectory(
+    private static final Trajectory ball4ToBall5 = TrajectoryGenerator.generateTrajectory(
             new Pose2d(0.60 + AutoConstants.getXOffsetTerminal5Ball(), -7 + AutoConstants.getYOffsetTerminal5Ball(), new Rotation2d(-45)),
             List.of(),
             new Pose2d(0.5 + AutoConstants.getXOffsetTerminal5Ball(), -6.9 + AutoConstants.getYOffsetTerminal5Ball(), new Rotation2d(-45)),
             AutoConfig.configRevHigh);
             
-    private static final Trajectory phase4 = TrajectoryGenerator.generateTrajectory(
+    private static final Trajectory ball5ToHub = TrajectoryGenerator.generateTrajectory(
             new Pose2d(0.5 + AutoConstants.getXOffsetTerminal5Ball(), -6.9 + AutoConstants.getYOffsetTerminal5Ball(), new Rotation2d(-45)),
             List.of(),
             new Pose2d(0, -3.5, new Rotation2d(-45)),
             AutoConfig.configRevHigh);
 
-            
+
     /** Creates a new T_R_2ball. */
     public TR_5Ball() {
         addCommands(
