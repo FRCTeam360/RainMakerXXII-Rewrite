@@ -5,19 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Gyroscope;
-import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.Flywheel;
 
-public class TurretAuto extends CommandBase {
-  private Turret turret = Turret.getInstance();
-  private DriveTrain driveTrain = DriveTrain.getInstance();
-  private Limelight limelight = Limelight.getInstance();
-  /** Creates a new TurretAuto. */
-  public TurretAuto() {
+public class RunFlywheelWithLimelight extends CommandBase {
+  private Flywheel flywheel = Flywheel.getInstance();
+  /** Creates a new RunFlywheelWithLimelight. */
+  public RunFlywheelWithLimelight() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(turret);
+    addRequirements(flywheel);
   }
 
   // Called when the command is initially scheduled.
@@ -27,20 +22,15 @@ public class TurretAuto extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(limelight.hasValidTarget()) {
-      alignWithLime();
-    } else {
-      turret.turnToFieldAngle(driveTrain.getAngleToHub());
-    }
-  }
-
-  public static void alignWithLime(){
-    
+    double shootGoal = flywheel.getShootGoal();
+    flywheel.setVelocity(shootGoal);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    flywheel.setVelocity(0);
+  }
 
   // Returns true when the command should end.
   @Override

@@ -13,6 +13,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -48,6 +49,12 @@ public class DriveTrain extends SubsystemBase {
 
   private Pose2d pose;
   private Field2d field = new Field2d();
+
+  private double driveOffset = 0;
+
+  private static double pi = Math.PI;
+  public static final double ticksToMeters = ((pi * 0.1524) * ((15.0 / 85.0) * (24.0 / 46.0) / 2048.0));
+
 
   public static DriveTrain getInstance() {
     if (instance == null) {
@@ -112,11 +119,18 @@ public class DriveTrain extends SubsystemBase {
     motorRLead.set(driveRLimiter.calculate(driveRight));
   }
 
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    motorLLead.setVoltage(leftVolts); // Answer is no //Set to motor groups
+    motorRLead.setVoltage(rightVolts); // it's big brain time
+    // m_differentialDrive.feed(); // Feed the motorsafety class so it doesnt disable the motors
+
+  }
+
   public void arcadeDrive(double leftY, double leftX) {
     tankDrive(leftY + leftX, leftY - leftX);
   }
   
-  public static DifferentialDriveKinematics getKinematics() {
+  public DifferentialDriveKinematics getKinematics() {
     return kinematics;
   }
 
@@ -126,6 +140,10 @@ public class DriveTrain extends SubsystemBase {
    */
   public void setOdometry(Pose2d givenPose) {
     odometry.resetPosition(givenPose, gyro.getRotation2d());
+  }
+
+  public Pose2d getPose() {
+    return odometry.getPoseMeters();
   }
 
   public double getLeftEncoderMeters() {
@@ -163,6 +181,17 @@ public class DriveTrain extends SubsystemBase {
     } else {
         return (180.0 - Math.abs(Math.toDegrees(radians))) * Math.signum(radians) * -1.0;
     }
+  }
+
+  public void setDriveOffset(double offset){
+    driveOffset = offset + 90;
+  }
+
+  public DifferentialDriveWheelSpeeds getWheelSpeeds() { // Must be in meters/second
+    // In example: m_leftEncoder.getRate() , m_rightEncoder.getRate() however, they
+    // set their rate to inclue their conversions
+    return new DifferentialDriveWheelSpeeds(motorLLead.getSelectedSensorVelocity() * ticksToMeters,
+        motorRLead.getSelectedSensorVelocity() * ticksToMeters);
   }
 
 }

@@ -12,6 +12,7 @@ import frc.robot.subsystems.DriveTrain;
 
 /** Add your docs here. */
 public class AutoConfig {
+  
     private static final DifferentialDriveVoltageConstraint autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
         DriveTrain.feedForward,
         DriveTrain.kinematics, 
@@ -22,7 +23,7 @@ public class AutoConfig {
             AutoConstants.kMaxSpeedMetersPerSecondHigh, 
             AutoConstants.kMaxAccelerationMetersPerSecondSquaredHigh
         )
-        .setKinematics(DriveTrain.getKinematics()) // Add kinematics to ensure max speed is actually obeyed
+        .setKinematics(DriveTrain.kinematics) // Add kinematics to ensure max speed is actually obeyed
         .addConstraint(autoVoltageConstraint) // Apply the voltage constraint
         .setReversed(false); //forward
 
@@ -31,7 +32,7 @@ public class AutoConfig {
          AutoConstants.kMaxSpeedMetersPerSecondHigh,
          AutoConstants.kMaxAccelerationMetersPerSecondSquaredHigh
         )
-        .setKinematics(DriveTrain.getKinematics()) // Add kinematics to ensure max speed is actually obeyed
+        .setKinematics(DriveTrain.kinematics) // Add kinematics to ensure max speed is actually obeyed
         .addConstraint(autoVoltageConstraint) // Apply the voltage constraint
         .setReversed(true); //reversed
 
@@ -40,7 +41,7 @@ public class AutoConfig {
             AutoConstants.kMaxSpeedMetersPerSecondLow, 
             AutoConstants.kMaxAccelerationMetersPerSecondSquaredLow
         )
-        .setKinematics(DriveTrain.getKinematics()) // Add kinematics to ensure max speed is actually obeyed
+        .setKinematics(DriveTrain.kinematics) // Add kinematics to ensure max speed is actually obeyed
         .addConstraint(autoVoltageConstraint) // Apply the voltage constraint
         .setReversed(false); //forward
 
@@ -49,7 +50,7 @@ public class AutoConfig {
          AutoConstants.kMaxSpeedMetersPerSecondLow,
          AutoConstants.kMaxAccelerationMetersPerSecondSquaredLow
         )
-        .setKinematics(DriveTrain.getKinematics()) // Add kinematics to ensure max speed is actually obeyed
+        .setKinematics(DriveTrain.kinematics) // Add kinematics to ensure max speed is actually obeyed
         .addConstraint(autoVoltageConstraint) // Apply the voltage constraint
         .setReversed(true); //reversed    
 }
