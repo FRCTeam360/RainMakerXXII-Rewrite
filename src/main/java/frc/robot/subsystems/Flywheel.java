@@ -9,6 +9,7 @@ import javax.sound.sampled.SourceDataLine;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -16,8 +17,17 @@ import frc.robot.Constants.CANIds;
 
 public class Flywheel extends SubsystemBase {
   private static Flywheel instance;
-  private final TalonFX motorLead = new TalonFX(CANIds.FLYWHEEL_LEAD_ID);
-  private final TalonFX motorFollow = new TalonFX(CANIds.FLYWHEEL_FOLLOW_ID);
+  private final WPI_TalonFX motorLead = new WPI_TalonFX(CANIds.FLYWHEEL_LEAD_ID);
+  private final WPI_TalonFX motorFollow = new WPI_TalonFX(CANIds.FLYWHEEL_FOLLOW_ID);
+
+  private final Limelight limelight = Limelight.getInstance();
+
+  private static final double a = 0.0086455746;
+  private static final double b = -0.1318250336;
+  private static final double c = 0.7137822277;
+  private static final double d = -30.47373396;
+  private static final double e = 3327.558816;
+
   private double targetVelocity;
   /** Creates a new Flywheel. */
   public Flywheel() {
@@ -62,6 +72,17 @@ public class Flywheel extends SubsystemBase {
   //50 is arbitrary, tune to account for issues
   public boolean isAtSpeed() {
     return Math.abs(getCurrentVelocity() - targetVelocity) <= 50;
+  }
+
+   /**
+   * gets shoot goal as determined by our quartic regression, using limelight
+   * y-value
+   * 
+   * @return shootGoal
+   */
+  public double getShootGoal() {
+    double limedY = limelight.getTY();
+    return ((a * Math.pow(limedY, 4)) + (b * Math.pow(limedY, 3) + (c * Math.pow(limedY, 2)) + (d * limedY) + e)) * 0.99;
   }
 
   @Override
