@@ -50,6 +50,7 @@ public class TR_5Ball extends ParallelRaceGroup {
       new Pose2d(0, 0, new Rotation2d(0)),
       List.of(),
       new Pose2d(1.1, -1, new Rotation2d(-90)),
+      // TODO create AutoConfig
       AutoConfig.configFwdHigh);
 
   public static final Trajectory ball2ToBall3 = TrajectoryGenerator.generateTrajectory(
@@ -94,12 +95,39 @@ public class TR_5Ball extends ParallelRaceGroup {
           new ExtendIntake(),
           
           new ParallelRaceGroup(
-            new RunIntake()
-            
-          )
-
+            new RunIntake(),
+            new AutoDrive(initToBall2, driveTrain).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+            new QueueBalls(true)
+          ),
+          new RetractIntake(),
+          new ParallelRaceGroup(
+            new RunIntake(),
+            new AutoShoot(2)
+          ),
+          new ExtendIntake(),
+          new ParallelRaceGroup(
+            new RunIntake(),
+            new AutoDrive(ball2ToBall3, driveTrain).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+            new QueueBalls(true)
+          ),
+          new ParallelRaceGroup(
+            new SequentialCommandGroup(
+              new RetractIntake(),
+              new RunIntake()
+            ),
+            new QueueBalls(true),
+            new SequentialCommandGroup(
+              new AutoDrive(ball3ToBall4, driveTrain).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+              new AutoDrive(ball4ToBall5, driveTrain).andThen(() -> driveTrain.tankDriveVolts(0,0)),
+              new WaitCommand(.5),
+              new AutoDrive(ball5ToHub, driveTrain).andThen(() -> driveTrain.tankDriveVolts(0, 0))
+            )
+            ),
+            new ParallelCommandGroup(
+              new RetractIntake(),
+              new AutoShoot(2)
+            )
         )
-
     ); 
   }
 
