@@ -35,6 +35,7 @@ public class RobotContainer {
   private final QueueBalls shootBalls = new QueueBalls(true);
   private final ClimbManual climb = new ClimbManual();
   private final TurretManual turretManual = new TurretManual();
+  private final TurretAuto turretAuto = new TurretAuto();
 
   public RobotContainer() {
     // Configure the button bindings
@@ -70,6 +71,7 @@ public class RobotContainer {
   }
 
   private void configureDefaultCommands() {
+    turret.setDefaultCommand(turretAuto);
     // turret.setDefaultCommand(turretManual);
   }
 

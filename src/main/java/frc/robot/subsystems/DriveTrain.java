@@ -162,6 +162,10 @@ public class DriveTrain extends SubsystemBase {
     return motorRLead.getSelectedSensorVelocity() * DriveTrainConstants.ticksToMeters;
   }
 
+  public double getAverageMetersPerSec() {
+    return (getLeftMetersPerSec() + getRightMetersPerSec()) / 2.0;
+  }
+
   /**
    * 
    */

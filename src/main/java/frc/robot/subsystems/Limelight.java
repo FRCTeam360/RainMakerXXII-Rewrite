@@ -5,12 +5,19 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight extends SubsystemBase {
   private static Limelight instance;
   private NetworkTable limelightData = NetworkTableInstance.getDefault().getTable("limelight");
+  private NetworkTableEntry tv = limelightData.getEntry("tv");
+  private NetworkTableEntry tx = limelightData.getEntry("tx");
+  private NetworkTableEntry ty = limelightData.getEntry("ty");
+  private NetworkTableEntry ta = limelightData.getEntry("ta");
+  private NetworkTableEntry tl = limelightData.getEntry("tl");
+  private NetworkTableEntry snap = limelightData.getEntry("snapshot");
   /** Creates a new Limelight. */
   public Limelight() {}
 
@@ -26,7 +33,7 @@ public class Limelight extends SubsystemBase {
    * @return horizontal offset (degrees)
   */
   public double getTX() {
-    return limelightData.getEntry("tX").getDouble(0);
+    return tx.getDouble(0.0);
   }
 
   /**
@@ -34,7 +41,7 @@ public class Limelight extends SubsystemBase {
    * @return vertical offset (degrees)
    */
   public double getTY() {
-    return limelightData.getEntry("tY").getDouble(0);
+    return ty.getDouble(0.0);
   }
 
   /**
@@ -42,7 +49,8 @@ public class Limelight extends SubsystemBase {
    * @return 1 for valid target, 0 for no valid target
    */
   public double getTV() {
-    return limelightData.getEntry("tV").getDouble(0);
+    // return limelightData.getEntry("tV").getDouble(0);
+    return tv.getDouble(0.0);
   }
 
   public boolean hasValidTarget() {

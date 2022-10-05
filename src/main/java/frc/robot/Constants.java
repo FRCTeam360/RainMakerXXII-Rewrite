@@ -46,7 +46,7 @@ public final class Constants {
         public static final int TOP_TOWER = 0;
         public static final int BOTTOM_TOWER = 2;
         public static final int FEEDER = 3;
-        public static final int MIDDLE_LIMIT_SWITCH = 1;
+        public static final int LIMIT_SWITCH = 1;
     }
 
     public static final class DriveTrainConstants {
