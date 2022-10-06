@@ -28,6 +28,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.*;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Gyroscope;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Turret;
@@ -41,6 +42,7 @@ public class TR_5Ball extends ParallelRaceGroup {
   Limelight limelight = Limelight.getInstance();
   Intake intake = Intake.getInstance();
   DriveTrain driveTrain = DriveTrain.getInstance();
+  Gyroscope gyro = Gyroscope.getInstance();
 
   // TO DO: UPDATE WHEN ODOMETRY IS FIXED !!! (names indicate starts and ends of
   // each path)
@@ -91,12 +93,12 @@ public class TR_5Ball extends ParallelRaceGroup {
         new RunFlywheelWithLimelight(),
 
         new SequentialCommandGroup(
-          new InstantCommand(() -> driveTrain.setDriveOffset(1.5)),
+          new InstantCommand(() -> gyro.setGyroAngle(1.5)),
           new ExtendIntake(),
           
           new ParallelRaceGroup(
             new RunIntake(),
-            new AutoDrive(initToBall2, driveTrain).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+            new AutoDrive(initToBall2).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
             new QueueBalls(true)
           ),
           new RetractIntake(),
@@ -107,7 +109,7 @@ public class TR_5Ball extends ParallelRaceGroup {
           new ExtendIntake(),
           new ParallelRaceGroup(
             new RunIntake(),
-            new AutoDrive(ball2ToBall3, driveTrain).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+            new AutoDrive(ball2ToBall3).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
             new QueueBalls(true)
           ),
           new ParallelRaceGroup(
@@ -117,10 +119,10 @@ public class TR_5Ball extends ParallelRaceGroup {
             ),
             new QueueBalls(true),
             new SequentialCommandGroup(
-              new AutoDrive(ball3ToBall4, driveTrain).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
-              new AutoDrive(ball4ToBall5, driveTrain).andThen(() -> driveTrain.tankDriveVolts(0,0)),
+              new AutoDrive(ball3ToBall4).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
+              new AutoDrive(ball4ToBall5).andThen(() -> driveTrain.tankDriveVolts(0,0)),
               new WaitCommand(.5),
-              new AutoDrive(ball5ToHub, driveTrain).andThen(() -> driveTrain.tankDriveVolts(0, 0))
+              new AutoDrive(ball5ToHub).andThen(() -> driveTrain.tankDriveVolts(0, 0))
             )
             ),
             new ParallelCommandGroup(

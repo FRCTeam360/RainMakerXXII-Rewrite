@@ -13,9 +13,9 @@ import frc.robot.subsystems.DriveTrain;
 
 /** Add your docs here. */
 public class AutoDrive extends RamseteCommand {
-  private final DriveTrain driveTrain = DriveTrain.getInstance();
+  private static DriveTrain driveTrain = DriveTrain.getInstance();
   
-  public AutoDrive (Trajectory traj, DriveTrain driveTrain) {
+  public AutoDrive (Trajectory traj) {
     super(
         traj, 
         driveTrain::getPose, 

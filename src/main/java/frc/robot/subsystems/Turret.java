@@ -174,6 +174,15 @@ public class Turret extends SubsystemBase {
     pastLimitSwitchState = currentMiddleLimitState;
   }
 
+  public void search(boolean limitHasBeenHit){
+    if(limitHasBeenHit)
+    if (getAngle() >= leftSoftLimit || getAngle() <= 0) {
+      run(0.8);
+    } else if (getAngle() <= rightSoftLimit || getAngle() >= 0) {
+      run(-0.8);
+    }
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
