@@ -30,7 +30,8 @@ public class OI {
 
     public static final JoystickButton FODReverseButton = new JoystickButton(driverCont, Button.kLeftStick.value);
 
-    public static final JoystickButton manualShootSlow = new JoystickButton(operatorCont, Button.kBack.value);
+    public static final JoystickButton manualShootFastButton = new JoystickButton(operatorCont, Button.kLeftStick.value);
+    public static final JoystickButton manualShootSlowButton = new JoystickButton(operatorCont, Button.kBack.value);
     public static final JoystickButton climbButton = new JoystickButton(operatorCont, Button.kRightStick.value);
     public static final JoystickButton manualTurretButton = new JoystickButton(operatorCont, Button.kStart.value);
 

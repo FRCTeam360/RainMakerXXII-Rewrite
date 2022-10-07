@@ -6,7 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.*;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Turret;
 import frc.robot.utils.OI;
 
@@ -18,6 +20,7 @@ import frc.robot.utils.OI;
  */
 public class RobotContainer {
   private final Turret turret = Turret.getInstance();
+  private final DriveTrain driveTrain = DriveTrain.getInstance();
 
   private final RunIntake runIntake = new RunIntake();
   private final RunIntake runIntakeReverse = new RunIntake(true);
@@ -72,6 +75,7 @@ public class RobotContainer {
 
   private void configureDefaultCommands() {
     turret.setDefaultCommand(turretAuto);
+    driveTrain.setDefaultCommand(fieldDrive);
     // turret.setDefaultCommand(turretManual);
   }
 
@@ -80,9 +84,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  //   // An ExampleCommand will run in autonomous
-  //   return m_autoCommand;
-  // }
+  public Command getAutonomousCommand() {
+    // An ExampleCommand will run in autonomous
+    return null;
+  }
 }
 
