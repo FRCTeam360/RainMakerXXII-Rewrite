@@ -22,7 +22,7 @@ public class TurretAuto extends CommandBase {
     LIMETIME, SEEK_LEFT, SEEK_RIGHT
   };
 
-  private Mode mode;
+  private Mode mode = Mode.LIMETIME;
 
   private Timer timer = new Timer();
 

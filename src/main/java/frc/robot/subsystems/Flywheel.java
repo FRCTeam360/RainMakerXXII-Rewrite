@@ -28,6 +28,17 @@ public class Flywheel extends SubsystemBase {
   private static final double d = -30.47373396;
   private static final double e = 3327.558816;
 
+  // Old data, need to tune
+  public static final int kSlotIdx = 0;
+  public static final int kTimeOutMs = 30;
+  public static final int kPIDLoopIdx = 0;
+  public static double kP = 0.3;
+  public static double kI = 0.000083;
+  public static double kD = 0;
+  public static double kF = 0.0471;
+  public static double kIz = 200;
+  public static final double kPeakOutput = 1;
+
   private double targetVelocity;
   /** Creates a new Flywheel. */
   public Flywheel() {
@@ -39,6 +50,16 @@ public class Flywheel extends SubsystemBase {
 
     motorLead.setInverted(false);
     motorFollow.setInverted(true);
+
+    motorLead.config_kF(0, kF, kTimeOutMs);
+    motorLead.config_kP(0, kP, kTimeOutMs);
+    motorLead.config_kI(0, kI, kTimeOutMs);
+    motorLead.config_kD(0, kD, kTimeOutMs);
+    motorLead.config_IntegralZone(0, kIz, kTimeOutMs);
+    motorLead.configNominalOutputForward(0, kTimeOutMs);
+    motorLead.configNominalOutputReverse(0, kTimeOutMs);
+    motorLead.configPeakOutputForward(1, kTimeOutMs);
+    motorLead.configPeakOutputReverse(-1, kTimeOutMs);
   }
 
   public static Flywheel getInstance() {

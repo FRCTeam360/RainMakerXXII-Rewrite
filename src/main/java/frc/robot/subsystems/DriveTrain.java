@@ -50,8 +50,6 @@ public class DriveTrain extends SubsystemBase {
   private Pose2d pose;
   private Field2d field = new Field2d();
 
-  private double driveOffset = 0;
-
   private static double pi = Math.PI;
   public static final double ticksToMeters = ((pi * 0.1524) * ((15.0 / 85.0) * (24.0 / 46.0) / 2048.0));
 
@@ -185,10 +183,6 @@ public class DriveTrain extends SubsystemBase {
     } else {
         return (180.0 - Math.abs(Math.toDegrees(radians))) * Math.signum(radians) * -1.0;
     }
-  }
-
-  public void setDriveOffset(double offset){
-    driveOffset = offset + 90;
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() { // Must be in meters/second
