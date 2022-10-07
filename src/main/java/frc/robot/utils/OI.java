@@ -16,9 +16,9 @@ public class OI {
     public static final ExtendedXboxController driverCont = new ExtendedXboxController(OIPorts.DRIVER_CONT_PORT, 0.125);
     public static final ExtendedXboxController operatorCont = new ExtendedXboxController(OIPorts.OPERATOR_CONT_PORT, 0.125);
 
-    public static final MultiTriggerButton runIntakeButton = new MultiTriggerButton(driverCont, operatorCont, TriggerSide.LEFT);
     public static final MultiJoystickButton runFeederButton = new MultiJoystickButton(driverCont, operatorCont, Button.kLeftBumper.value);
     public static final MultiJoystickButton runTowerButton = new MultiJoystickButton(driverCont, operatorCont, Button.kRightBumper.value);
+    public static final MultiTriggerButton runIntakeButton = new MultiTriggerButton(driverCont, operatorCont, TriggerSide.LEFT);
 
     public static final TriggerButton extendClimberButton = new TriggerButton(operatorCont, TriggerSide.LEFT);
     public static final TriggerButton retractClimberButton = new TriggerButton(operatorCont, TriggerSide.RIGHT);

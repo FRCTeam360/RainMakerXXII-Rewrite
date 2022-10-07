@@ -1,0 +1,43 @@
+note: back button is top left paddle, left joystick button is bottom left paddle,
+      start button is top right paddle, right joystick button is bottom right paddle
+
+DRIVER
+left bumper: run intake
+left trigger: run feeder
+right trigger: run tower
+right bumpber: run shooter
+a button: extend intake
+b button: retract intake
+x button: reverse
+y button: queue balls
+start button: 
+back button:
+left joystick:
+right joystick:
+left joystick button: reversed field oriented drive
+right joystick button:
+dpad up (0): reset angle
+dpad right (90): arcade
+dpad down (180): tank button
+dpad left (270): field oriented drive
+
+
+OPERATOR
+left bumper: run intake
+left trigger: run feeder / extend climber
+right trigger: run tower / retract climber
+right bumpber: run shooter
+a button: extend intake
+b button: retract intake
+x button: reverse
+y button: queue balls
+start button: manual turret
+back button: manual shoot slow
+left joystick:
+right joystick:
+left joystick button: manual shoot fast
+right joystick button: climb button
+dpad up (0): 
+dpad right (90):
+dpad down (180):
+dpad left (270):
