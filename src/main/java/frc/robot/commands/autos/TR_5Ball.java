@@ -99,7 +99,7 @@ public class TR_5Ball extends ParallelRaceGroup {
           new ParallelRaceGroup(
             new RunIntake(),
             new AutoDrive(initToBall2).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
-            new QueueBalls(true)
+            new QueueBalls(false)
           ),
           new RetractIntake(),
           new ParallelRaceGroup(
@@ -110,14 +110,14 @@ public class TR_5Ball extends ParallelRaceGroup {
           new ParallelRaceGroup(
             new RunIntake(),
             new AutoDrive(ball2ToBall3).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
-            new QueueBalls(true)
+            new QueueBalls(false)
           ),
           new ParallelRaceGroup(
             new SequentialCommandGroup(
               new RetractIntake(),
               new RunIntake()
             ),
-            new QueueBalls(true),
+            new QueueBalls(false),
             new SequentialCommandGroup(
               new AutoDrive(ball3ToBall4).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
               new AutoDrive(ball4ToBall5).andThen(() -> driveTrain.tankDriveVolts(0,0)),
