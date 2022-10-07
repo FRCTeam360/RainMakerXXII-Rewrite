@@ -20,6 +20,8 @@ public class OI {
     public static final MultiJoystickButton runTowerButton = new MultiJoystickButton(driverCont, operatorCont, Button.kRightBumper.value);
     public static final MultiTriggerButton runIntakeButton = new MultiTriggerButton(driverCont, operatorCont, TriggerSide.LEFT);
 
+    public static final MultiTriggerButton runFlywheelButton = new MultiTriggerButton(driverCont, operatorCont, TriggerSide.RIGHT);
+
     public static final TriggerButton extendClimberButton = new TriggerButton(operatorCont, TriggerSide.LEFT);
     public static final TriggerButton retractClimberButton = new TriggerButton(operatorCont, TriggerSide.RIGHT);
 

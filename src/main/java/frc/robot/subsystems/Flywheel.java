@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.CANIds;
@@ -39,6 +40,11 @@ public class Flywheel extends SubsystemBase {
   public static double kIz = 200;
   public static final double kPeakOutput = 1;
 
+  public static final double MAX_SHOOTER_ACCELERATION = 5000;
+  private final SlewRateLimiter filter = new SlewRateLimiter(MAX_SHOOTER_ACCELERATION);
+
+  public static final double shooterToMotorRPM = (600.0 / 2048.0);
+
   private double targetVelocity;
   /** Creates a new Flywheel. */
   public Flywheel() {
@@ -50,6 +56,8 @@ public class Flywheel extends SubsystemBase {
 
     motorLead.setInverted(false);
     motorFollow.setInverted(true);
+
+    motorFollow.follow(motorLead);
 
     motorLead.config_kF(0, kF, kTimeOutMs);
     motorLead.config_kP(0, kP, kTimeOutMs);
@@ -82,8 +90,18 @@ public class Flywheel extends SubsystemBase {
    * @param velocity in rpms maybe? honestly not sure
    */
   public void setVelocity(double velocity) {
-    motorLead.set(ControlMode.Velocity, velocity);
-    targetVelocity = velocity;
+    if (velocity == 0) {
+      filter.reset(0);
+      this.setPower(0);
+      targetVelocity = 0;
+    } else {
+
+      // target = shootOnMove(target);
+
+      targetVelocity = filter.calculate(velocity);
+
+      motorLead.set(ControlMode.Velocity, targetVelocity * 2 / 3 / shooterToMotorRPM);
+    }
   }
 
   public double getCurrentVelocity() {

@@ -39,6 +39,8 @@ public class RobotContainer {
   private final ClimbManual climb = new ClimbManual();
   private final TurretManual turretManual = new TurretManual();
   private final TurretAuto turretAuto = new TurretAuto();
+  private final RunFlywheelWithLimelight runFlyWLime = new RunFlywheelWithLimelight();
+  private final RunFlywheelSetSpeed runFlywheelSetSpeed = new RunFlywheelSetSpeed();
 
   public RobotContainer() {
     // Configure the button bindings
@@ -63,6 +65,10 @@ public class RobotContainer {
     OI.runTowerButton.whileHeld(runTower);
     OI.runTowerButton.and(OI.reverseButton).whileActiveContinuous(runTowerReversed);
     OI.queueBallsButton.whileHeld(queueBalls);
+
+    OI.runFlywheelButton.whileHeld(runFlyWLime);
+    OI.manualShootFastButton.whileHeld(runFlywheelSetSpeed);
+    OI.manualShootSlowButton.whileHeld(runFlywheelSetSpeed);
 
     OI.tankButton.whenPressed(tankDrive);
     OI.arcadeButton.whenPressed(arcadeDrive);

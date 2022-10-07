@@ -70,7 +70,7 @@ public class TurretAuto extends CommandBase {
         if (limelight.hasValidTarget()) {
           mode = Mode.LIMETIME;
         } else if (turret.getAngle() <= Turret.rightSoftLimit) {
-          mode = Mode.SEEK_RIGHT;
+          mode = Mode.SEEK_LEFT;
         }
     }
   }

@@ -30,8 +30,8 @@ public class ClimbManual extends CommandBase {
       climber.extendClimber();
 
     } else {
-      climber.runLeft(OI.operatorCont.getLeftYWithDeadZone());
-      climber.runRight(OI.operatorCont.getRightYWithDeadZone());
+      climber.runLeft(-OI.operatorCont.getLeftYWithDeadZone());
+      climber.runRight(-OI.operatorCont.getRightYWithDeadZone());
     }
   }
 

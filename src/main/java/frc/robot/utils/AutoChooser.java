@@ -19,6 +19,9 @@ public class AutoChooser {
   private final Command terminalRight5Ball = new TR_5Ball();
 
   public AutoChooser(){
+
+    autoChooser = new SendableChooser<>();
+
     autoChooser.addOption("Hang L 2 Ball", hangarLeft2Ball);
     autoChooser.addOption("Term R 5 Ball", terminalRight5Ball);
 

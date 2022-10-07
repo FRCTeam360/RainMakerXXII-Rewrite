@@ -37,7 +37,7 @@ public final class Constants {
         public final static int MOTOR_R2_FOLLOW_ID = 6;
         public final static int FLYWHEEL_LEAD_ID = 7;
         public final static int FLYWHEEL_FOLLOW_ID = 9;
-        public final static int CLIMBER_L_ID = 13;
+        public final static int CLIMBER_L_ID= 13;
         public final static int CLIMBER_R_ID = 14;
         public final static int PIGEON_ID = 22;
     }
