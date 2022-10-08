@@ -187,7 +187,7 @@ public class Turret extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("turret angle", getAngle());
-    System.out.println("turret angle is " + getAngle());
+    // System.out.println("turret angle is " + getAngle());
 
     limitSwitchResetAngle();
   }

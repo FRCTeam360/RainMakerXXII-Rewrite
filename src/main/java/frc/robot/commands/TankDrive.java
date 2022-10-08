@@ -27,7 +27,7 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
     driveTrain.tankDrive(-OI.driverCont.getLeftY(), -OI.driverCont.getRightY());
-    System.out.println("tanking");
+    // System.out.println("tanking");
   }
 
   // Called once the command ends or is interrupted.

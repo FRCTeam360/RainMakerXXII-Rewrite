@@ -20,7 +20,7 @@ public class AutoDrive extends RamseteCommand {
         traj, 
         driveTrain::getPose, 
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
-        driveTrain.feedForward,
+        driveTrain.getFeedForward(),
         driveTrain.getKinematics(),
         driveTrain::getWheelSpeeds,
         new PIDController(AutoConstants.kPDriveVel, 0, 0),

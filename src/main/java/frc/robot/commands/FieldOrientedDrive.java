@@ -36,20 +36,20 @@ public class FieldOrientedDrive extends CommandBase {
   @Override
   public void execute() {
     gyroAngle = Math.toRadians(gyroscope.getGyroAngle());
-    System.out.println(gyroAngle);
-    rightLeft = driverCont.getLeftXSquared();
-    upDown = -driverCont.getLeftYSquared();
+    // System.out.println(gyroAngle);
+    rightLeft = driverCont.getLeftXSquaredWithDeadzone();
+    upDown = -driverCont.getLeftYSquaredWithDeadzone();
     forward = upDown * Math.cos(gyroAngle) + rightLeft * Math.sin(gyroAngle);
     right = -upDown * Math.sin(gyroAngle) + rightLeft * Math.cos(gyroAngle);
 
-    Double turnInPlace = -driverCont.getRightX();
+    Double turnInPlace = -driverCont.getRightXWithDeadzone();
     if(OI.FODReverseButton.get()) {
       driveTrain.arcadeDrive(forward, -right - turnInPlace);
     } else {
       driveTrain.arcadeDrive(forward, right - turnInPlace);
     }
     
-    System.out.println("fielding");
+    // System.out.println("fielding");
 
   }
   // Called once the command ends or is interrupted

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoShoot extends ParallelRaceGroup {
-  private Boolean shootBalls = false;
+  private Boolean shootBalls = true;
   /** Creates a new Shoot. */
   public AutoShoot(int cargoToShoot) {
     // Add your commands in the addCommands() call, e.g.

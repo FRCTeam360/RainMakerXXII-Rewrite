@@ -39,7 +39,7 @@ public class Anywhere2Ball extends ParallelRaceGroup {
   public static final Trajectory phase1 = TrajectoryGenerator.generateTrajectory(
     new Pose2d(0, 0, new Rotation2d(0)),
     List.of(),
-    new Pose2d(0, 0, new Rotation2d(0)),
+    new Pose2d(1.1, 0, new Rotation2d(0)),
     AutoConfig.configFwdLow);
 
   /** Creates a new T_R_2ball. */

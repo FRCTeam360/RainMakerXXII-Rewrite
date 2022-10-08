@@ -25,7 +25,7 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
     driveTrain.arcadeDrive(-OI.driverCont.getLeftY(), OI.driverCont.getLeftX());
-    System.out.println("arcading");
+    // System.out.println("arcading");
   }
 
   // Called once the command ends or is interrupted.

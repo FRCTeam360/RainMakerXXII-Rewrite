@@ -17,6 +17,7 @@ public class AutoChooser {
 
   private final Command hangarLeft2Ball = new HL_2Ball();
   private final Command terminalRight5Ball = new TR_5Ball();
+  private final Command anywhere2Ball = new Anywhere2Ball();
 
   public AutoChooser(){
 
@@ -24,6 +25,7 @@ public class AutoChooser {
 
     autoChooser.addOption("Hang L 2 Ball", hangarLeft2Ball);
     autoChooser.addOption("Term R 5 Ball", terminalRight5Ball);
+    autoChooser.addOption("Anywhere 2 Ball", anywhere2Ball);
 
     SmartDashboard.putData("Auto Choice", autoChooser);
   }

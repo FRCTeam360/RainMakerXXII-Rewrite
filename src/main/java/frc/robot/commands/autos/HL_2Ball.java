@@ -41,9 +41,12 @@ public class HL_2Ball extends ParallelRaceGroup {
   Gyroscope gyro = Gyroscope.getInstance();
   
 
-  public static Translation2d starting = new Translation2d(1.34, 4.2);
+  // public static Translation2d starting = new Translation2d(1.34, 4.2);
+  // public static Pose2d startingPose = new Pose2d(starting, new Rotation2d());
+  // public static Pose2d ball3 = new Pose2d(2.34, 4.2, new Rotation2d());
+  public static Translation2d starting = new Translation2d(0, 0);
   public static Pose2d startingPose = new Pose2d(starting, new Rotation2d());
-  public static Pose2d ball3 = new Pose2d(2.34, 4.2, new Rotation2d());
+  public static Pose2d ball3 = new Pose2d(1, 0, new Rotation2d());
 
   private static final String ball2JSON = "paths/2ball.wpilib.json";
   // Trajectory phase1 = new Trajectory();

@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.CANIds;
@@ -43,9 +44,10 @@ public class Flywheel extends SubsystemBase {
   public static final double MAX_SHOOTER_ACCELERATION = 5000;
   private final SlewRateLimiter filter = new SlewRateLimiter(MAX_SHOOTER_ACCELERATION);
 
+  public static final double shooterToRPM = (600.0 / 2048.0) * (3.0 / 2.0);
   public static final double shooterToMotorRPM = (600.0 / 2048.0);
 
-  private double targetVelocity;
+  private double targetVelocity = 2000;
   /** Creates a new Flywheel. */
   public Flywheel() {
     motorLead.configFactoryDefault();
@@ -82,7 +84,7 @@ public class Flywheel extends SubsystemBase {
    * @param power percent power from -1.0 to 1.0
    */
   public void setPower(double power) {
-    motorLead.set(ControlMode.PercentOutput, power);
+    motorLead.set(power);
   }
 
   /**
@@ -90,26 +92,37 @@ public class Flywheel extends SubsystemBase {
    * @param velocity in rpms maybe? honestly not sure
    */
   public void setVelocity(double velocity) {
+    SmartDashboard.putNumber("set velocity", velocity);
+    SmartDashboard.putNumber("Shoot Goal", targetVelocity);
     if (velocity == 0) {
-      filter.reset(0);
-      this.setPower(0);
       targetVelocity = 0;
     } else {
 
       // target = shootOnMove(target);
-
+      
       targetVelocity = filter.calculate(velocity);
+
 
       motorLead.set(ControlMode.Velocity, targetVelocity * 2 / 3 / shooterToMotorRPM);
     }
   }
 
+  private void stopIfShouldStop(){
+    if(targetVelocity == 0){
+      filter.reset(0);
+      this.setPower(0);
+    }
+  }
+
   public double getCurrentVelocity() {
-    return motorLead.getSelectedSensorVelocity();
+    return motorLead.getSelectedSensorVelocity() * shooterToRPM;
   }
 
   //50 is arbitrary, tune to account for issues
   public boolean isAtSpeed() {
+    if(targetVelocity == 0){
+      return false;
+    }
     return Math.abs(getCurrentVelocity() - targetVelocity) <= 50;
   }
 
@@ -121,11 +134,13 @@ public class Flywheel extends SubsystemBase {
    */
   public double getShootGoal() {
     double limedY = limelight.getTY();
-    return ((a * Math.pow(limedY, 4)) + (b * Math.pow(limedY, 3) + (c * Math.pow(limedY, 2)) + (d * limedY) + e)) * 0.99;
+    return ((a * Math.pow(limedY, 4)) + (b * Math.pow(limedY, 3) + (c * Math.pow(limedY, 2)) + (d * limedY) + e)) * 1.00;
   }
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("Shooter Velocity", getCurrentVelocity());
+    stopIfShouldStop();
     // This method will be called once per scheduler run
   }
 }

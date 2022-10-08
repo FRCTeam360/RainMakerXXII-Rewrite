@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -68,12 +69,12 @@ public class DriveTrain extends SubsystemBase {
     motorR1Follow.follow(motorRLead);
     motorR2Follow.follow(motorRLead);
 
-    motorLLead.setInverted(false);
-    motorL1Follow.setInverted(InvertType.FollowMaster);
-    motorL2Follow.setInverted(InvertType.FollowMaster);
-    motorRLead.setInverted(true);
-    motorR1Follow.setInverted(InvertType.FollowMaster);
-    motorR2Follow.setInverted(InvertType.FollowMaster);
+    motorLLead.setInverted(TalonFXInvertType.CounterClockwise);
+    motorL1Follow.setInverted(TalonFXInvertType.FollowMaster);
+    motorL2Follow.setInverted(TalonFXInvertType.FollowMaster);
+    motorRLead.setInverted(TalonFXInvertType.Clockwise);
+    motorR1Follow.setInverted(TalonFXInvertType.FollowMaster);
+    motorR2Follow.setInverted(TalonFXInvertType.FollowMaster);
 
     motorLLead.setNeutralMode(NeutralMode.Coast);
     motorL1Follow.setNeutralMode(NeutralMode.Coast);
@@ -98,6 +99,8 @@ public class DriveTrain extends SubsystemBase {
     // SmartDashboard.putNumber("rot2Dangle", gyro.getRotation2d().getDegrees());
     // //uncomment if angle resetting breaks (we're trying to please the programming
     // gods) (its magic)
+
+    System.out.println("pose x: " + odometry.getPoseMeters().getX() + "y: " + odometry.getPoseMeters().getY());
   }
 
   public void run(double speedRight, double speedLeft) {
@@ -190,6 +193,21 @@ public class DriveTrain extends SubsystemBase {
     // set their rate to inclue their conversions
     return new DifferentialDriveWheelSpeeds(motorLLead.getSelectedSensorVelocity() * ticksToMeters,
         motorRLead.getSelectedSensorVelocity() * ticksToMeters);
+  }
+
+  public SimpleMotorFeedforward getFeedForward() {
+    return feedForward;
+  }
+
+  public void resetEncPos() { // For initialization resets encoder positions, for ramsete
+    motorLLead.setSelectedSensorPosition(0);
+    motorRLead.setSelectedSensorPosition(0);
+    gyro.setGyroAngle(0);
+    // gyro.zeroYaw();
+    // gyro.setAngleAdjustment(0); // Set angle offset
+    // offsetAngle = 0;
+    odometry.resetPosition(new Pose2d(), gyro.getRotation2d()); // Set odomentry to zero
+    System.out.println("reset");
   }
 
 }

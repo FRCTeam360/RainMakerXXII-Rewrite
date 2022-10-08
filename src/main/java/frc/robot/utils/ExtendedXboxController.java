@@ -70,6 +70,22 @@ public class ExtendedXboxController extends XboxController {
     public double getLeftYSquared() {
         return getSquaredValue(this.getLeftY());
     }
+
+    public double getRightXSquaredWithDeadzone() {
+      return getSquaredValue(this.getRightXWithDeadzone());
+  }
+
+  public double getLeftXSquaredWithDeadzone() {
+      return getSquaredValue(this.getLeftXWithDeadZone());
+  }
+
+  public double getRightYSquaredWithDeadzone() {
+      return getSquaredValue(this.getRightYWithDeadZone());
+  }
+
+  public double getLeftYSquaredWithDeadzone() {
+      return getSquaredValue(this.getLeftYWithDeadZone());
+  }
     
     /*
     * it is big brain time
