@@ -10,9 +10,11 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.CANIds;
@@ -46,6 +48,19 @@ public class Climber extends SubsystemBase {
 
     leftPIDController.setP(kP);
     rightPIDController.setP(kP);
+    
+    left.getEncoder().setPosition(0);
+    right.getEncoder().setPosition(0);
+
+    left.setSoftLimit(SoftLimitDirection.kForward, 50);
+    left.setSoftLimit(SoftLimitDirection.kReverse, 0);
+    right.setSoftLimit(SoftLimitDirection.kForward, 50);
+    right.setSoftLimit(SoftLimitDirection.kReverse, 0);
+
+    left.enableSoftLimit(SoftLimitDirection.kForward, true);
+    left.enableSoftLimit(SoftLimitDirection.kReverse, false);
+    right.enableSoftLimit(SoftLimitDirection.kForward, true);
+    right.enableSoftLimit(SoftLimitDirection.kReverse, false);
   }
 
   public static Climber getInstance(){
@@ -90,6 +105,8 @@ public class Climber extends SubsystemBase {
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("LC encoder", left.getEncoder().getPosition());
+    SmartDashboard.putNumber("RC encoder", right.getEncoder().getPosition());
     // This method will be called once per scheduler run
   }
 }

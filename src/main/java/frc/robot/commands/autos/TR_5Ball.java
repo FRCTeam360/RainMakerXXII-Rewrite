@@ -93,13 +93,13 @@ public class TR_5Ball extends ParallelRaceGroup {
         new RunFlywheelWithLimelight(),
 
         new SequentialCommandGroup(
-          new InstantCommand(() -> gyro.setGyroAngle(1.5)),
+          // new InstantCommand(() -> gyro.setGyroAngle(1.5)),
           new ExtendIntake(),
           
           new ParallelRaceGroup(
             new RunIntake(),
             new AutoDrive(initToBall2).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
-            new QueueBalls(false)
+            new QueueBalls(true)
           ),
           new RetractIntake(),
           new ParallelRaceGroup(
@@ -110,14 +110,14 @@ public class TR_5Ball extends ParallelRaceGroup {
           new ParallelRaceGroup(
             new RunIntake(),
             new AutoDrive(ball2ToBall3).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
-            new QueueBalls(false)
+            new QueueBalls(true)
           ),
           new ParallelRaceGroup(
             new SequentialCommandGroup(
               new RetractIntake(),
               new RunIntake()
             ),
-            new QueueBalls(false),
+            new QueueBalls(true),
             new SequentialCommandGroup(
               new AutoDrive(ball3ToBall4).andThen(() -> driveTrain.tankDriveVolts(0, 0)),
               new AutoDrive(ball4ToBall5).andThen(() -> driveTrain.tankDriveVolts(0,0)),
@@ -125,6 +125,7 @@ public class TR_5Ball extends ParallelRaceGroup {
               new AutoDrive(ball5ToHub).andThen(() -> driveTrain.tankDriveVolts(0, 0))
             )
             ),
+            new InstantCommand(() -> gyro.setAngleAdjustment(1.5)),
             new ParallelCommandGroup(
               new RetractIntake(),
               new AutoShoot(2)

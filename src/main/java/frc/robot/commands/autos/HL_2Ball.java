@@ -52,9 +52,9 @@ public class HL_2Ball extends ParallelRaceGroup {
   // Trajectory phase1 = new Trajectory();
 
   public static final Trajectory phase1 = TrajectoryGenerator.generateTrajectory(
-      new Pose2d(starting, new Rotation2d(90)),
+      new Pose2d(0, 0, new Rotation2d(0)),
       List.of(),
-      ball3,
+      new Pose2d(1, 0, new Rotation2d(0)),
       AutoConfig.configFwdLow);
 
   /** Creates a new T_R_2ball. */
@@ -81,7 +81,7 @@ public class HL_2Ball extends ParallelRaceGroup {
 
         new SequentialCommandGroup(
 
-          new InstantCommand(() -> gyro.setGyroAngle(133.5)),
+          // new InstantCommand(() -> gyro.setGyroAngle(133.5)),
 
             // new AutoRunFeederAndTower(),
 
@@ -99,6 +99,8 @@ public class HL_2Ball extends ParallelRaceGroup {
             ),
 
             new RetractIntake(),
+
+            new InstantCommand(() -> gyro.setAngleAdjustment(133.5)),
             
             new ParallelRaceGroup(
 

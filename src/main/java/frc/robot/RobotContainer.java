@@ -75,7 +75,7 @@ public class RobotContainer {
     OI.fieldOrientedButton.whenPressed(fieldDrive);
     OI.resetButton.whenPressed(resetGyroAngle);
 
-    OI.climbButton.whileHeld(climb);
+    OI.climbButton.whileHeld(climb, false);
     OI.manualTurretButton.whileHeld(turretManual);
   }
 

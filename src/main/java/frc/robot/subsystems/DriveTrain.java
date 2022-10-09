@@ -100,7 +100,7 @@ public class DriveTrain extends SubsystemBase {
     // //uncomment if angle resetting breaks (we're trying to please the programming
     // gods) (its magic)
 
-    System.out.println("pose x: " + odometry.getPoseMeters().getX() + "y: " + odometry.getPoseMeters().getY());
+    // System.out.println("pose x: " + odometry.getPoseMeters().getX() + "y: " + odometry.getPoseMeters().getY());
   }
 
   public void run(double speedRight, double speedLeft) {

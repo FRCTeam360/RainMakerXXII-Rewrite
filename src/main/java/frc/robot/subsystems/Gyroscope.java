@@ -60,4 +60,8 @@ public class Gyroscope extends SubsystemBase {
     // pigeon.setYaw(degrees);
   }
 
+  public void setAngleAdjustment(double degrees){
+    navX.setAngleAdjustment(degrees + 90);
+  }
+
 }

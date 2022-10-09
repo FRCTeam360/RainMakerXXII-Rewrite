@@ -42,10 +42,11 @@ public class QueueBalls extends CommandBase {
   @Override
   public void execute() {
     // updateState();
-    System.out.println(state);
-    if(shootWhenReady && flywheel.isAtSpeed() && limelight.isOnTarget()) {
+    if(shootWhenReady && flywheel.isAtSpeed() && limelight.isOnTarget() && state != State.SHOOT_FIRST_BALL && state != State.PAUSE) {
       state = State.SHOOT;
     }
+
+    System.out.println(state);
 
     //Logic should work its way down the switch statement, moving from one state to the next as each step
     //is completed. In case of unknown state updateState() is called. 
@@ -146,6 +147,7 @@ public class QueueBalls extends CommandBase {
 
   private void runTower() {
     tower.run(1.0);
+    System.out.println("running tower");
     feeder.stop();
   }
 
