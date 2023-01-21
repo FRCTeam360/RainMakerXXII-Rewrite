@@ -19,6 +19,8 @@ public class Limelight extends SubsystemBase {
   private NetworkTableEntry ta = limelightData.getEntry("ta");
   private NetworkTableEntry tl = limelightData.getEntry("tl");
   private NetworkTableEntry snap = limelightData.getEntry("snapshot");
+  private NetworkTableEntry botPose = limelightData.getEntry("botpose");
+  
   /** Creates a new Limelight. */
   public Limelight() {}
 
@@ -66,6 +68,16 @@ public class Limelight extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putBoolean("isOnTarget", isOnTarget());
     SmartDashboard.putBoolean("valid target", hasValidTarget());
+    double[] doubleArray = new double[6];
+    doubleArray = botPose.getDoubleArray(doubleArray);
+
+    
+    System.out.println("bot pose 1 :" + doubleArray[0]);
+    System.out.println("bot pose 2 :" + doubleArray[1]);
+    System.out.println("bot pose 3 :" + doubleArray[2]);
+    System.out.println("bot pose 4 :" + doubleArray[3]);
+    System.out.println("bot pose 5 :" + doubleArray[4]);
+    System.out.println("bot pose 6 :" + doubleArray[5]);
     // This method will be called once per scheduler run
   }
 }
